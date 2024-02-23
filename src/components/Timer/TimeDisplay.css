@@ -1,0 +1,16 @@
+.TimeDisplay {
+    display: flex;
+    flex-direction: row;
+}
+
+.TimeDisplay .hour_section {
+    width: 33%;
+}
+
+.TimeDisplay .min_section {
+    width: 33%;
+}
+
+.TimeDisplay .sec_section {
+    width: 33%;
+}

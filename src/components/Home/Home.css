@@ -1,0 +1,8 @@
+.Home {
+    /* no-op */
+}
+
+.Home .top_section {
+    display: flex;
+    flex-direction: row;
+}

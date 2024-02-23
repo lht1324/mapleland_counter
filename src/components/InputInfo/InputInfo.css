@@ -1,0 +1,18 @@
+.InputInfo {
+    /* no-op */
+}
+
+.InputInfo section {
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.InputInfo input {
+    padding: 5px;
+    border: 0px;
+    border-bottom: 1px solid black;
+}

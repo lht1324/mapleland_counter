@@ -1,0 +1,28 @@
+.Result {
+    display: flex;
+    flex-direction: column;
+}
+
+.Result thead {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Result tbody {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Result th {
+    width: 100%;
+    text-align: center;
+    border: 1px solid gray;
+}
+
+.Result td {
+    width: 100%;
+    text-align: center;
+    border: 1px solid gray;
+}

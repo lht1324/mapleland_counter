@@ -1,0 +1,18 @@
+.Timer {
+    /* no-op */
+}
+.Timer .player_section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.Timer .player_section .ImageButton {
+    max-width: 100px;
+}
+
+.Timer .moderate_section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
