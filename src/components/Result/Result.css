@@ -5,7 +5,7 @@
 
 .Result table {
     display: flex;
-    background-color: white;
+    background-color: #fefefe;
 }
 
 
@@ -32,6 +32,7 @@
     font-weight: extrabold;
     text-align: start;
     border: 1px solid gray;
+    word-wrap: break-word;
 }
 
 .Result td {
@@ -39,4 +40,15 @@
     font-weight: bold;
     text-align: start;
     border: 1px solid gray;
+    word-wrap: break-word;
+}
+
+.Result .exp {
+    background-color: #afee00;
+    color: black;
+}
+
+.Result .meso {
+    background-color: #ffdd11;
+    color: black;
 }

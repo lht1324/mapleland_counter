@@ -85,7 +85,7 @@ const Timer = ({ onFinishTimer }) => {
                 <Button text={"-1시간"} onClick={() => onClickSetTime(-3600)} />
                 <Button text={"-15분"} onClick={() => onClickSetTime(-900)} />
                 <Button text={"-5분"} onClick={() => onClickSetTime(-300)} />
-                <Button text={"+5분"} onClick={() => onClickSetTime(300)} />
+                <Button text={"+5분"} onClick={() => onClickSetTime(10)} />
                 <Button text={"+15분"} onClick={() => onClickSetTime(900)} />
                 <Button text={"+1시간"} onClick={() => onClickSetTime(3600)} />
             </div>

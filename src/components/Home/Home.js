@@ -32,7 +32,9 @@ const Home = () => {
                 <Timer onFinishTimer={onFinishTimer} />
                 <InputInfo userInfo={userInfo} onChangeUserInfo={onChangeUserInfo} />
             </div>
-            <Result time={resultTime} userInfo={userInfo} />
+            {
+                resultTime === 0 ? <div/> : <Result time={resultTime} userInfo={userInfo} />
+            }
         </div>
     )
 }
