@@ -15,7 +15,7 @@ const Timer = ({ onFinishTimer }) => {
     const [initialTime, setInitialTime] = useState(0);
     const [time, setTime] = useState(0);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
-    
+
     const onClickSetTime = (value) => {
         if (initialTime === 0 && !isTimerRunning) {
             if (time + value >= 0) {
@@ -27,8 +27,10 @@ const Timer = ({ onFinishTimer }) => {
     };
 
     const onClickPlay = () => {
-        setInitialTime(time);
-        setIsTimerRunning(true);
+        if (time !== 0 && initialTime === 0) {
+            setInitialTime(time);
+            setIsTimerRunning(true);
+        }
     }
 
     const onClickPause = () => {
@@ -69,7 +71,7 @@ const Timer = ({ onFinishTimer }) => {
             clearInterval(timer);
         }
     }, [time, isTimerRunning]);
-    
+
     if (isValid(time)) {
         return (<div className="Timer">
             <TimeDisplay time={time} />

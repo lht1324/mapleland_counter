@@ -17,7 +17,6 @@ const Home = () => {
 
     // second
     const [resultTime, setResultTime] = useState(0);
-    const [timerFinishState, setTimerFinishState] = useState("");
 
     const onChangeUserInfo = (value) => {
         setUserInfo(value);
