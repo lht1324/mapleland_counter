@@ -1,13 +1,8 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { addCommaToNumber, isValid, secondToTimeString } from "../../util";
 import "./Result.css";
+import { CounterStateContext } from "../../App";
 
-const tableInfo = [
-    {
-        head: "",
-        body: ""
-    }
-]
 const Result = ({ time, userInfo }) => {
     const {
         oldExp,
@@ -25,12 +20,8 @@ const Result = ({ time, userInfo }) => {
 
     const timeString = secondToTimeString(time);
 
-    useEffect(() => {
-        console.log(`time = ${time}, timeString = ${timeString}`)
-    }, [timeString])
-
     return (<div className="Result">
-        <h2>{`${timeString} 동안 사냥 정보`}</h2>
+        <h2>{`${timeString} 동안의 사냥 결과`}</h2>
         <h4>⚠️ 정확한 값을 입력하지 않으면 정확한 결과를 얻을 수 없어요</h4>
         <table>
             <thead>
@@ -40,13 +31,25 @@ const Result = ({ time, userInfo }) => {
                 <th>메소 획득량</th>
             </thead>
             <tbody>
-                <td>{addCommaToNumber(expGain)}</td>
-                <td>{`${addCommaToNumber(expGainRatio)}%`}</td>
-                <td>{`약 ${addCommaToNumber(expectedTotalExp)}`}</td>
-                <td>{addCommaToNumber(mesoGain)}</td>
+                <td>{expGain ? addCommaToNumber(expGain) : "-"}</td>
+                <td>{(!isNaN(expGainRatio) && isValid(expGainRatio)) ? `${addCommaToNumber(expGainRatio)}%` : "-"}</td>
+                <td>{expectedTotalExp ? `약 ${addCommaToNumber(expectedTotalExp)}` : "-"}</td>
+                <td>{mesoGain ? addCommaToNumber(mesoGain) : "-"}</td>
             </tbody>
         </table>
     </div>)
+}
+
+Result.defaultProps = {
+    time: 0,
+    userInfo: {
+        oldExp: 0,
+        newExp: 0,
+        oldExpRatio: 0,
+        newExpRatio: 0,
+        oldMeso: 0,
+        newMeso: 0,
+    }
 }
 
 export default Result;

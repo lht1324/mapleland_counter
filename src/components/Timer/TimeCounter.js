@@ -1,9 +1,9 @@
 import { memo } from "react";
 import "./TimeCounter.css";
 
-const TimeCounter = ({ time, typeText }) => {
+const TimeCounter = ({ time }) => {
     return (<div className="TimeCounter">
-        <p>{`${time < 10 ? `0${time}` : time}${typeText}`}</p>
+        <h1>{`${time < 10 ? `0${time}` : time}`}</h1>
     </div>)
 }
 

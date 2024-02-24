@@ -6,7 +6,11 @@ export const secondToTimeString = (inputSecond) => {
         const minute = Math.floor(inputSecond / 60);
         const second = Math.floor(inputSecond % 60);
 
-        return `${minute}분 ${second}초`;
+        if (second === 0) {
+            return `${minute}분`;
+        } else {
+            return `${minute}분 ${second}초`;
+        }
     } else {
         const hour = Math.floor(inputSecond / (60 * 60));
         const minute = Math.floor(inputSecond / 60 % 60);

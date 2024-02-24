@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import "./TimeDisplay.css";
 import TimeCounter from "./TimeCounter";
 
@@ -6,6 +6,8 @@ const TimeDisplay = ({ time }) => {
     const [hour, setHour] = useState(0);
     const [minute, setMinute] = useState(0);
     const [second, setSecond] = useState(0);
+
+    const divider = <p className="divider">:</p>
 
     useEffect(() => {
         if (time < 60) {
@@ -29,17 +31,17 @@ const TimeDisplay = ({ time }) => {
 
     return (<div className="TimeDisplay">
         <div className="hour_section">
-            <TimeCounter time={hour} typeText={"시간"}  />
+            <TimeCounter time={hour} />
         </div>
-        <div> : </div>
+        {divider}
         <div className="min_section">
-            <TimeCounter time={minute} typeText={"분"}  />
+            <TimeCounter time={minute} />
         </div>
-        <div> : </div>
+        {divider}
         <div className="sec_section">
-            <TimeCounter time={second} typeText={"초"} />
+            <TimeCounter time={second} />
         </div>
     </div>)
 }
 
-export default TimeDisplay;
+export default memo(TimeDisplay);

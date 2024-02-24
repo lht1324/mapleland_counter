@@ -15,6 +15,12 @@
     justify-content: space-between;
 }
 
+.Result tr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .Result th {
     width: 100%;
     text-align: center;

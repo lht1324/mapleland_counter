@@ -1,4 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
 .App {
     text-align: center;
     padding: 20px;
+    font-family: "Nanum Gothic";
+    background-color: aliceblue;
 }

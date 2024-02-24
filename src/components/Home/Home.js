@@ -2,10 +2,10 @@ import "./Home.css";
 import Timer from "../Timer/Timer";
 import InputInfo from "../InputInfo/InputInfo";
 import Result from "../Result/Result";
-import { useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const Home = () => {
-    // 시간 0이고 5분 후 경험치 메소 isNotEmpty일 때 Result 출력
+    // 시간 0이고 5분 후 경험치 메소 !isNan일 때 Result 출력
     const [userInfo, setUserInfo] = useState({
         oldExp: undefined,
         newExp: undefined,
@@ -16,23 +16,26 @@ const Home = () => {
     });
 
     // second
-    const [time, setTime] = useState(0);
+    const [resultTime, setResultTime] = useState(0);
+    const [timerFinishState, setTimerFinishState] = useState("");
 
     const onChangeUserInfo = (value) => {
         setUserInfo(value);
     }
 
-    const onChangeTime = (value) => {
-        setTime(value);
+    const onFinishTimer = (timerTime) => {
+        setResultTime(timerTime);
     }
 
-    return(<div className="Home">
-        <div className="top_section">
-            <Timer time={time} onChangeTime={onChangeTime} />
-            <InputInfo userInfo={userInfo} onChangeUserInfo={onChangeUserInfo} />
+    return (
+        <div className="Home">
+            <div className="top_section">
+                <Timer onFinishTimer={onFinishTimer} />
+                <InputInfo userInfo={userInfo} onChangeUserInfo={onChangeUserInfo} />
+            </div>
+            <Result time={resultTime} userInfo={userInfo} />
         </div>
-        <Result time={time} userInfo={userInfo} />
-    </div>)
+    )
 }
 
 export default Home;
