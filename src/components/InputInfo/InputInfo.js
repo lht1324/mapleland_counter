@@ -39,13 +39,13 @@ const InputInfo = ({ userInfo, onChangeUserInfo }) => {
     }
     return (<div className="InputInfo">
         <section>
-            <legend>기존 정보</legend>
+            <legend>사냥 전</legend>
             <input type="number" placeholder="경험치" value={userInfo.oldExp} onChange={onChangeOldExp}></input>
             <input type="number" placeholder="경험치 %" value={userInfo.oldExpRatio} onChange={onChangeOldExpRatio}></input>
             <input type="number" placeholder="메소" value={userInfo.oldMeso} onChange={onChangeOldMeso}></input>
         </section>
         <section>
-            <legend>사냥 후 정보</legend>
+            <legend>사냥 후</legend>
             <input type="number" placeholder="경험치" value={userInfo.newExp} onChange={onChangeNewExp}></input>
             <input type="number" placeholder="경험치 %" value={userInfo.newExpRatio} onChange={onChangeNewExpRatio}></input>
             <input type="number" placeholder="메소" value={userInfo.newMeso} onChange={onChangeNewMeso}></input>

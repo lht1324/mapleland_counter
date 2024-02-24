@@ -71,7 +71,7 @@ const Timer = ({ onFinishTimer }) => {
             clearInterval(timer);
         }
     }, [time, isTimerRunning]);
-
+    
     if (isValid(time)) {
         return (<div className="Timer">
             <TimeDisplay time={time} />
