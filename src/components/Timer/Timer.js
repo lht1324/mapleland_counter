@@ -1,5 +1,5 @@
-import Button from "./Button";
-import ImageButton from "./ImageButton";
+import Button from "../public/Button";
+import ImageButton from "../public/ImageButton";
 import { ReactComponent as PlayImage } from "../../assets/ic_timer_play.svg";
 import { ReactComponent as PauseImage } from "../../assets/ic_timer_pause.svg";
 import { ReactComponent as StopImage } from "../../assets/ic_timer_stop.svg";
@@ -21,7 +21,7 @@ const Timer = ({ onFinishTimer }) => {
             if (time + value >= 0) {
                 setTime(time + value);
             } else {
-                alert("0보다 작은 값은 입력할 수 없습니다.");
+                alert("0보다 작은 값은 입력할 수 없어요 :(");
             }
         }
     };
@@ -82,12 +82,12 @@ const Timer = ({ onFinishTimer }) => {
                 <ImageButton src={<ResetImage width="50" height="50" />} onClick={onClickReset} />
             </div>
             <div className="moderate_section">
-                <Button text={"-1시간"} onClick={() => onClickSetTime(-3600)} />
-                <Button text={"-15분"} onClick={() => onClickSetTime(-900)} />
-                <Button text={"-5분"} onClick={() => onClickSetTime(-300)} />
-                <Button text={"+5분"} onClick={() => onClickSetTime(10)} />
-                <Button text={"+15분"} onClick={() => onClickSetTime(900)} />
-                <Button text={"+1시간"} onClick={() => onClickSetTime(3600)} />
+                <Button text={"-1H"} onClick={() => onClickSetTime(-3600)} />
+                <Button text={"-15M"} onClick={() => onClickSetTime(-900)} />
+                <Button text={"-5M"} onClick={() => onClickSetTime(-300)} />
+                <Button text={"+5M"} onClick={() => onClickSetTime(10)} />
+                <Button text={"+15M"} onClick={() => onClickSetTime(900)} />
+                <Button text={"+1H"} onClick={() => onClickSetTime(3600)} />
             </div>
         </div>)
     } else {

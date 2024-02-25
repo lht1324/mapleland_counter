@@ -1,5 +1,6 @@
 .InputInfo {
-    /* no-op */
+    display: flex;
+    flex-direction: row;
 }
 
 .InputInfo section {
@@ -7,6 +8,7 @@
     margin: 10px;
     border: 1px solid grey;
     border-radius: 5px;
+    background-color: white;
     display: flex;
     flex-direction: column;
 }

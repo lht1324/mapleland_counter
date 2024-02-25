@@ -1,82 +1,60 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./InputInfo.css";
+import { addCommaToNumber, isFloatTypeInteger, removeCommaFromNumber } from "../../util";
 
 const InputInfo = ({ userInfo, onChangeUserInfo }) => {
-    const addCommas = (value) => {
-        return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    };
-
-    // 2,147,483,647
-    const removeComma = (number) => {
-        const numberString = String(number);
-
-        if (numberString.includes('.')) {
-            return parseFloat(String(number).replace(/,/g, '')).toFixed(2);
-        } else {
-            return parseInt(String(number).replace(/,/g, ''));
-        }
-    }
+    const [isOldExpRatioEndsWithDot, setIsOldExpRatioEndsWithDot] = useState(false);
+    const [isNewExpRatioEndsWithDot, setIsNewExpRatioEndsWithDot] = useState(false);
 
     const onChangeOldExp = (e) => {
-        const oldExp = removeComma(e.target.value);
+        const oldExp = e.target.value.length !== 0 ? removeCommaFromNumber(e.target.value) : undefined;
 
-        if (!isNaN(oldExp) && oldExp < userInfo.newExp) {
-            onChangeUserInfo({
-                ...userInfo,
-                oldExp: oldExp
-            })
-        } else {
-            alert("사냥 후 경험치보다 큰 값은 입력할 수 없어요 :(")
-        }
+        onChangeUserInfo({
+            ...userInfo,
+            oldExp: oldExp
+        })
     }
     const onChangeNewExp = (e) => {
-        const newExp = removeComma(e.target.value);
+        const newExp = e.target.value.length !== 0 ? removeCommaFromNumber(e.target.value) : undefined;
 
-        if (!isNaN(newExp) && newExp > userInfo.oldExp) {
-            onChangeUserInfo({
-                ...userInfo,
-                newExp: newExp
-            })
-        } else {
-            alert("사냥 전 경험치보다 작은 값은 입력할 수 없어요 :(")
-        }
+        onChangeUserInfo({
+            ...userInfo,
+            newExp: newExp
+        })
     }
     const onChangeOldExpRatio = (e) => {
-        const oldExpRatio = removeComma(e.target.value);
+        const oldExpRatio = e.target.value.length !== 0 ? parseFloat(e.target.value) : undefined;
 
-        if (!isNaN(oldExpRatio) && oldExpRatio <= 100.00 && oldExpRatio < userInfo.newExpRatio) {
+        if (oldExpRatio <= 100.00 || typeof (oldExpRatio) === "undefined") {
+            console.log(`All passed: ${oldExpRatio}`)
+            setIsOldExpRatioEndsWithDot(e.target.value.endsWith('.'));
+
             onChangeUserInfo({
                 ...userInfo,
                 oldExpRatio: oldExpRatio
             })
         } else {
-            if (oldExpRatio > 100.00) {
-                alert("100 이상의 값은 입력할 수 없어요 :(")
-            } else {
-                alert("사냥 후 경험치보다 큰 값은 입력할 수 없어요 :(")
-            }
+            alert("100 이상의 값은 입력할 수 없어요 :(")
         }
     }
     const onChangeNewExpRatio = (e) => {
-        const newExpRatio = removeComma(e.target.value);
+        const newExpRatio = e.target.value.length !== 0 ? parseFloat(e.target.value) : undefined;
 
-        if (!isNaN(newExpRatio) && newExpRatio <= 100.00 && newExpRatio > userInfo.oldExpRatio) {
+        if (newExpRatio <= 100.00 || typeof (newExpRatio) === "undefined") {
+            setIsNewExpRatioEndsWithDot(e.target.value.endsWith('.'));
+
             onChangeUserInfo({
                 ...userInfo,
                 newExpRatio: newExpRatio
             })
         } else {
-            if (newExpRatio > 100.00) {
-                alert("100 이상의 값은 입력할 수 없어요 :(")
-            } else {
-                alert("사냥 전 경험치보다 작은 값은 입력할 수 없어요 :(")
-            }
+            alert("100 이상의 값은 입력할 수 없어요 :(")
         }
     }
     const onChangeOldMeso = (e) => {
-        const oldMeso = removeComma(e.target.value);
+        const oldMeso = e.target.value.length !== 0 ? removeCommaFromNumber(e.target.value) : undefined;
 
-        if (!isNaN(oldMeso) && oldMeso <= 2147483647) {
+        if ((oldMeso <= 2147483647) || typeof (oldMeso) === "undefined") {
             onChangeUserInfo({
                 ...userInfo,
                 oldMeso: oldMeso
@@ -86,9 +64,9 @@ const InputInfo = ({ userInfo, onChangeUserInfo }) => {
         }
     }
     const onChangeNewMeso = (e) => {
-        const newMeso = removeComma(e.target.value);
+        const newMeso = e.target.value.length !== 0 ? removeCommaFromNumber(e.target.value) : undefined;
 
-        if (!isNaN(newMeso) && newMeso <= 2147483647) {
+        if ((newMeso <= 2147483647) || typeof (newMeso) === "undefined") {
             onChangeUserInfo({
                 ...userInfo,
                 newMeso: newMeso
@@ -98,38 +76,46 @@ const InputInfo = ({ userInfo, onChangeUserInfo }) => {
         }
     }
 
-    useEffect(() => {
-        console.log(`newMeso = ${userInfo.newMeso}`);
-    }, [userInfo.newMeso]);
-
     return (<div className="InputInfo">
         <section>
             <legend>사냥 전</legend>
             <div className="input_section">
-                <input type="text" placeholder="경험치" value={addCommas(userInfo.oldExp)} onChange={onChangeOldExp}></input>
+                <input type="text" placeholder="경험치" value={userInfo.oldExp ? addCommaToNumber(userInfo.oldExp) : userInfo.oldExp} onChange={onChangeOldExp}></input>
                 <p>EXP</p>
             </div>
             <div className="input_section">
-                <input type="text" placeholder="경험치 %" value={userInfo.oldExpRatio} maxLength={6} onChange={onChangeOldExpRatio}></input>
+                <input
+                    type="text"
+                    placeholder="경험치 %"
+                    value={userInfo.oldExpRatio ? (isOldExpRatioEndsWithDot ? `${userInfo.oldExpRatio}.` : `${userInfo.oldExpRatio}`) : ""}
+                    maxLength={5}
+                    onChange={onChangeOldExpRatio}>
+                </input>
                 <p>%</p>
             </div>
             <div className="input_section">
-                <input type="text" placeholder="메소" value={addCommas(userInfo.oldMeso)} maxLength={13} onChange={onChangeOldMeso}></input>
+                <input type="text" placeholder="메소" value={userInfo.oldMeso ? addCommaToNumber(userInfo.oldMeso) : userInfo.oldMeso} maxLength={13} onChange={onChangeOldMeso}></input>
                 <p>메소</p>
             </div>
         </section>
         <section>
             <legend>사냥 후</legend>
             <div className="input_section">
-                <input type="text" placeholder="경험치" value={addCommas(userInfo.newExp)} onChange={onChangeNewExp}></input>
+                <input type="text" placeholder="경험치" value={userInfo.newExp ? addCommaToNumber(userInfo.newExp) : userInfo.newExp} onChange={onChangeNewExp}></input>
                 <p>EXP</p>
             </div>
             <div className="input_section">
-                <input type="text" placeholder="경험치 %" value={userInfo.newExpRatio} maxLength={6} onChange={onChangeNewExpRatio}></input>
+                <input
+                    type="text"
+                    placeholder="경험치 %"
+                    value={userInfo.newExpRatio ? (isNewExpRatioEndsWithDot ? `${userInfo.newExpRatio}.` : `${userInfo.newExpRatio}`) : ""}
+                    maxLength={5}
+                    onChange={onChangeNewExpRatio}>
+                </input>
                 <p>%</p>
             </div>
             <div className="input_section">
-                <input type="text" placeholder="메소" value={addCommas(userInfo.newMeso)} maxLength={13} onChange={onChangeNewMeso}></input>
+                <input type="text" placeholder="메소" value={userInfo.newMeso ? addCommaToNumber(userInfo.newMeso) : userInfo.newMeso} maxLength={13} onChange={onChangeNewMeso}></input>
                 <p>메소</p>
             </div>
         </section>

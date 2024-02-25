@@ -4,5 +4,11 @@
 
 .Home .top_section {
     display: flex;
+    flex-direction: column;
+}
+
+.Home .bottom_section {
+    padding-bottom: 10rem;
+    display: flex;
     flex-direction: row;
 }

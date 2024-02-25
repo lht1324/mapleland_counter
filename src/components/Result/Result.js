@@ -19,6 +19,19 @@ const Result = ({ time, userInfo }) => {
         meso: 100
     }
 
+    const makeTableRow = (type, headerText, itemText) => {
+        const itemStyle = {
+            backgroundColor: type !== "default"
+                ? type === "exp" ? "rgb(175, 238, 0)" : "rgb(255, 221, 17)"
+                : "white",
+            color: "black"
+        }
+        return <tr style={itemStyle}>
+            <th className={type}>{headerText}</th>
+            <td className={type}>{itemText}</td>
+        </tr>
+    }
+
     const expGain = newExp - oldExp;
     const mesoGain = newMeso - oldMeso;
 
@@ -44,29 +57,15 @@ const Result = ({ time, userInfo }) => {
         <h4>⚠️ 정확한 값을 입력하지 않으면 정확한 결과를 얻을 수 없어요</h4>
         <h2>기본 정보</h2>
         <table>
-            <thead>
-                <th className="exp">경험치 획득량</th>
-                <th className="meso">메소 획득량</th>
-            </thead>
-            <tbody>
-                <td className="exp">{expGainString}</td>
-                <td className="meso">{mesoGainString}</td>
-            </tbody>
+            {makeTableRow("exp", "경험치 획득량", expGainString)}
+            {makeTableRow("meso", "메소 획득량", mesoGainString)}
         </table>
         <h2>추가 정보</h2>
         <table>
-            <thead>
-                <th className="exp">경험치 획득 비율</th>
-                <th className="exp">추정 전체 경험치</th>
-                <th className="exp">레벨업 필요 경험치</th>
-                <th>{`레벨업까지 남은 ${mobInfo.name}`}</th>
-            </thead>
-            <tbody>
-                <td className="exp">{expGainRatioString}</td>
-                <td className="exp">{expectedTotalExpString}</td>
-                <td className="exp">{expToLevelUpString}</td>
-                <td>{mobCountToLevelUpString}</td>
-            </tbody>
+            {makeTableRow("exp", "경험치 획득 비율", expGainRatioString)}
+            {makeTableRow("exp", "추정 전체 경험치", expectedTotalExpString)}
+            {makeTableRow("exp", "레벨업 필요 경험치", expToLevelUpString)}
+            {makeTableRow("default", `레벨업까지 남은 ${mobInfo.name}`, mobCountToLevelUpString)}
         </table>
     </div>)
 }

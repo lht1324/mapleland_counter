@@ -78,6 +78,22 @@ export const addCommaToNumber = (input) => {
     return String(input).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+export const removeCommaFromNumber = (number) => {
+    const numberString = String(number);
+
+    if (numberString.includes('.')) {
+        return parseFloat(String(number).replace(/,/g, '')).toFixed(2);
+    } else {
+        return parseInt(String(number).replace(/,/g, ''));
+    }
+}
+
 export const isValid = (object) => {
     return object !== null && !isNaN(object) && object !== undefined && typeof(object) !== "undefined";
+}
+
+export const isFloatTypeInteger = (number) => {
+    const numberString = String(number.toFixed(1));
+
+    return numberString.charAt(numberString.length - 1) === '0' && numberString.charAt(numberString.length - 2) === '.';
 }

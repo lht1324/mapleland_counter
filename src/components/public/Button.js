@@ -1,7 +1,7 @@
 import { memo } from "react";
 import "./Button.css";
 
-const Button = ({ text, type, onClick }) => {
+const Button = ({ text, onClick }) => {
     return (<div className="Button">
         <button onClick={onClick}>{text}</button>
     </div>)

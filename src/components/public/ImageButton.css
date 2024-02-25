@@ -16,11 +16,9 @@
 }
 
 .ImageButton button:hover {
-    background-color: azure;
-    /* border-radius: 5px; */
+    background-color: gainsboro;
 }
 
 .ImageButton button:active {
-    background-color: aliceblue;
-    /* border-radius: 5px; */
+    background-color: silver;
 }
