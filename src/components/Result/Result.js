@@ -14,7 +14,7 @@ const Result = ({ time, userInfo }) => {
     } = userInfo;
 
     const mobInfo = {
-        name: "네펜데스",
+        name: "드레이크",
         exp: 135,
         meso: 100
     }

@@ -1,11 +1,7 @@
-.Button {
-    padding: 10px;
-}
-
 .Button button {
-    min-width: 50px;
-    min-height: 50px;
-    border-radius: 100%;
+    min-width: 55px;
+    min-height: 55px;
+    border-radius: 15px;
     background-color: white;
     font-family: "Nanum Gothic";
     font-weight: bold;

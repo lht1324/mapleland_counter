@@ -2,7 +2,7 @@ import "./Home.css";
 import Timer from "../Timer/Timer";
 import InputInfo from "../InputInfo/InputInfo";
 import Result from "../Result/Result";
-import { createContext, useEffect, useState } from "react";
+import { useState } from "react";
 
 const Home = () => {
     // 시간 0이고 5분 후 경험치 메소 !isNan일 때 Result 출력

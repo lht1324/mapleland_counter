@@ -1,15 +1,18 @@
 .Timer {
-    /* no-op */
-}
-.Timer .player_section {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+}
+.Timer .left_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.Timer .moderate_section {
-    padding-top: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.Timer .right_section {
+    width: fit-content;
+    height: fit-content;
+    margin-left: 20px;
 }

@@ -1,13 +1,11 @@
-import Button from "../public/Button";
-import ImageButton from "../public/ImageButton";
-import { ReactComponent as PlayImage } from "../../assets/ic_timer_play.svg";
-import { ReactComponent as PauseImage } from "../../assets/ic_timer_pause.svg";
-import { ReactComponent as StopImage } from "../../assets/ic_timer_stop.svg";
-import { ReactComponent as ResetImage } from "../../assets/ic_timer_reset.svg";
-import TimeDisplay from "./TimeDisplay";
+import TimeDisplay from "./display/TimeDisplay";
 import "./Timer.css";
-import { memo, useEffect, useState } from "react";
+import { createContext, memo, useCallback, useEffect, useState } from "react";
 import { isValid } from "../../util";
+import TimerModifier from "./controller/TimerModifier";
+import TimerPlayer from "./controller/TimerPlayer";
+
+export const TimerStateContext = createContext();
 
 const INTERVAL = 1000;
 
@@ -16,38 +14,54 @@ const Timer = ({ onFinishTimer }) => {
     const [time, setTime] = useState(0);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
 
-    const onClickSetTime = (value) => {
-        if (initialTime === 0 && !isTimerRunning) {
-            if (time + value >= 0) {
-                setTime(time + value);
+    const onClickSetTime = useCallback((value) => {
+        if (!isTimerRunning) {
+            setTime((prevTime) => {
+                if (prevTime + value >= 0) {
+                    return prevTime + value;
+                } else {
+                    alert("0보다 작은 값은 입력할 수 없어요 :(");
+                    return prevTime;
+                }
+            });
+        }
+    }, [isTimerRunning]);
+
+    const onClickPlay = useCallback(() => {
+        setInitialTime((prevInitialTime) => {
+            if (prevInitialTime === 0) {
+                return time;
             } else {
-                alert("0보다 작은 값은 입력할 수 없어요 :(");
+                return prevInitialTime;
             }
-        }
-    };
+        })
+        setIsTimerRunning((_) => {
+            return time !== 0;
+        })
+    }, [time]);
 
-    const onClickPlay = () => {
-        if (time !== 0 && initialTime === 0) {
-            setInitialTime(time);
-            setIsTimerRunning(true);
-        }
-    }
-
-    const onClickPause = () => {
+    const onClickPause = useCallback(() => {
         setIsTimerRunning(false);
-    }
+    }, []);
 
-    const onClickStop = () => {
+    const onClickStop = useCallback(() => {
         onFinishTimer(initialTime - time);
         setTime(0);
         setInitialTime(0);
         setIsTimerRunning(false);
-    }
+    }, []);
 
-    const onClickReset = () => {
+    const onClickReset = useCallback(() => {
         setTime(0);
         setInitialTime(0);
         setIsTimerRunning(false);
+    }, []);
+
+    const timerPlayerProps = {
+        onClickPlay: onClickPlay,
+        onClickPause: onClickPause,
+        onClickStop: onClickStop,
+        onClickReset: onClickReset
     }
 
     useEffect(() => {
@@ -73,23 +87,19 @@ const Timer = ({ onFinishTimer }) => {
     }, [time, isTimerRunning]);
     
     if (isValid(time)) {
-        return (<div className="Timer">
-            <TimeDisplay time={time} />
-            <div className="player_section">
-                <ImageButton src={<PlayImage width="50" height="50" />} onClick={onClickPlay} />
-                <ImageButton src={<PauseImage width="50" height="50" />} onClick={onClickPause} />
-                <ImageButton src={<StopImage width="50" height="50" />} onClick={onClickStop} />
-                <ImageButton src={<ResetImage width="50" height="50" />} onClick={onClickReset} />
-            </div>
-            <div className="moderate_section">
-                <Button text={"-1H"} onClick={() => onClickSetTime(-3600)} />
-                <Button text={"-15M"} onClick={() => onClickSetTime(-900)} />
-                <Button text={"-5M"} onClick={() => onClickSetTime(-300)} />
-                <Button text={"+5M"} onClick={() => onClickSetTime(10)} />
-                <Button text={"+15M"} onClick={() => onClickSetTime(900)} />
-                <Button text={"+1H"} onClick={() => onClickSetTime(3600)} />
-            </div>
-        </div>)
+        return (
+            <TimerStateContext.Provider value={time} >
+                <div className="Timer">
+                    <div className="left_section">
+                        <TimeDisplay />
+                        <TimerPlayer {...timerPlayerProps} />
+                    </div>
+                    <div className="right_section">
+                        <TimerModifier onClickSetTime={onClickSetTime} />
+                    </div>
+                </div>
+            </TimerStateContext.Provider>
+        )
     } else {
         return <div></div>
     }

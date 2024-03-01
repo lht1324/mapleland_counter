@@ -1,13 +1,16 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import "./TimeDisplay.css";
 import TimeCounter from "./TimeCounter";
+import { TimerStateContext } from "../Timer";
 
-const TimeDisplay = ({ time }) => {
+const TimeDisplay = () => {
+    const time = useContext(TimerStateContext);
+
     const [hour, setHour] = useState(0);
     const [minute, setMinute] = useState(0);
     const [second, setSecond] = useState(0);
 
-    const divider = <p className="divider">:</p>
+    const divider = <h2 className="divider">:</h2>
 
     useEffect(() => {
         if (time < 60) {
@@ -30,17 +33,11 @@ const TimeDisplay = ({ time }) => {
     }, [time]);
 
     return (<div className="TimeDisplay">
-        <div className="hour_section">
-            <TimeCounter time={hour} />
-        </div>
+        <TimeCounter className="hour_section" time={hour} />
         {divider}
-        <div className="min_section">
-            <TimeCounter time={minute} />
-        </div>
+        <TimeCounter className="min_section" time={minute} />
         {divider}
-        <div className="sec_section">
-            <TimeCounter time={second} />
-        </div>
+        <TimeCounter className="sec_section" time={second} />
     </div>)
 }
 

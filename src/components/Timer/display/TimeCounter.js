@@ -3,7 +3,7 @@ import "./TimeCounter.css";
 
 const TimeCounter = ({ time }) => {
     return (<div className="TimeCounter">
-        <h1>{`${time < 10 ? `0${time}` : time}`}</h1>
+        <p>{time < 10 ? `0${time}` : time}</p>
     </div>)
 }
 
