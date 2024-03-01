@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./InputInfo.css";
-import { addCommaToNumber, isFloatTypeInteger, removeCommaFromNumber } from "../../util";
+import { addCommaToNumber, removeCommaFromNumber } from "../../util";
 
 const InputInfo = ({ userInfo, onChangeUserInfo }) => {
     const [isOldExpRatioEndsWithDot, setIsOldExpRatioEndsWithDot] = useState(false);
@@ -26,7 +26,6 @@ const InputInfo = ({ userInfo, onChangeUserInfo }) => {
         const oldExpRatio = e.target.value.length !== 0 ? parseFloat(e.target.value) : undefined;
 
         if (oldExpRatio <= 100.00 || typeof (oldExpRatio) === "undefined") {
-            console.log(`All passed: ${oldExpRatio}`)
             setIsOldExpRatioEndsWithDot(e.target.value.endsWith('.'));
 
             onChangeUserInfo({

@@ -1,17 +1,28 @@
 .Result {
     width: 100%;
+    margin-bottom: 10rem;
     display: flex;
     flex-direction: column;
 }
 
-.Result table {
-    background-color: #fefefe;
-    table-layout: fixed;
-    border-collapse: collapse;
+.Result .warning_section {
+    display: flex;
+    flex-direction: column;
 }
 
-.Result tr {
-    /* width: 100%; */
+.Result p {
+    width: fit-content;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.Result table {
+    width: 100%;
+    background-color: #fefefe;
+    border-collapse: collapse;
 }
 
 .Result th, td {
