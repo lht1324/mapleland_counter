@@ -1,0 +1,13 @@
+.TimeCounter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 70px;
+}
+
+.TimeCounter p {
+    padding: 10px;
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+}

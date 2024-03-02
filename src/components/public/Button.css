@@ -1,0 +1,16 @@
+.Button button {
+    min-width: 55px;
+    min-height: 55px;
+    border-radius: 15px;
+    background-color: white;
+    font-family: "Nanum Gothic";
+    font-weight: bold;
+}
+
+.Button button:hover {
+    background-color: gainsboro;
+}
+
+.Button button:active {
+    background-color: silver;
+}

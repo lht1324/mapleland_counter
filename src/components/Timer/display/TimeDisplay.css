@@ -1,0 +1,20 @@
+.TimeDisplay {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: black;
+    border-radius: 15px;
+}
+
+.TimeDisplay .hour_section, .min_section, .sec_section {
+    width: 30%;
+}
+
+.TimeDisplay .divider {
+    width: 5%;
+    background-color: black;
+    color: white;
+    font-size: 36px;
+}

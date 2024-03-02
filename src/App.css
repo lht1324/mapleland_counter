@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
 .App {
-  text-align: center;
+    padding: 20px;
+    min-width: 50vw;
+    text-align: center;
+    font-family: "Nanum Gothic";
+    background-color: #b8e7f7;
+    background: rgb(230,183,253);
+    background: linear-gradient(180deg, rgba(230,183,253,1) 0%, rgba(207,207,250,1) 50%, rgba(181,233,245,1) 100%);
+    justify-content: center;
 }

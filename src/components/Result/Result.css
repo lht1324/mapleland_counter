@@ -1,0 +1,53 @@
+.Result {
+    width: 100%;
+    margin-bottom: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.Result .warning_section {
+    display: flex;
+    flex-direction: column;
+}
+
+.Result p {
+    width: fit-content;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.Result table {
+    width: 100%;
+    background-color: #fefefe;
+    border-collapse: collapse;
+}
+
+.Result th, td {
+    padding: 10px;
+    border: 1px solid gray;
+    text-align: start;
+    word-break: keep-all;
+}
+
+.Result th {
+    width: 35%;
+    font-weight: extrabold;
+}
+
+.Result td {
+    width: 65%;
+    font-weight: bold;
+}
+
+.Result .exp {
+    background-color: #afee00;
+    color: black;
+}
+
+.Result .meso {
+    background-color: #ffdd11;
+    color: black;
+}

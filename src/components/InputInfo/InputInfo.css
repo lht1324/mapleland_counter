@@ -1,0 +1,39 @@
+.InputInfo {
+    display: flex;
+    flex-direction: row;
+}
+
+.InputInfo section {
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.InputInfo legend {
+    font-weight: bold;
+}
+
+.InputInfo input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 16px;
+    font-family: "Nanum Gothic";
+    font-weight: bold;
+}
+
+.InputInfo p {
+    padding-left: 5px;
+    font-weight: bold;
+}
+
+.InputInfo .input_section {
+    display: flex;
+    flex-direction: row;
+}
