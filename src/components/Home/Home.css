@@ -1,4 +1,9 @@
 .Home {
+    display: flex;
+    flex-direction: row;
+}
+
+.Home .main_container {
     justify-content: center;
 }
 
