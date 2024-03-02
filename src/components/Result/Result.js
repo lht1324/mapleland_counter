@@ -26,21 +26,40 @@ const Result = ({ time, userInfo }) => {
     const mesoGain = newMeso - oldMeso;
 
     const expGainRatio = (newExpRatio - oldExpRatio).toFixed(2);
-    const expectedTotalExp = Math.floor(newExp / newExpRatio * 100.0);
-    const expToLevelUp = expectedTotalExp - newExp;
-    const remainingTimeToLevelUp = !isNaN(expGainRatio) && isValid(expGainRatio) && expGainRatio >= 0.0 ? (time / expGainRatio) * (100 - newExpRatio) : undefined;
+    const expectedTotalExp = newExp > oldExp && newExpRatio > oldExpRatio
+        ? Math.floor(newExp / newExpRatio * 100.0)
+        : undefined;
+    const expToLevelUp = newExp > oldExp && newExpRatio > oldExpRatio
+        ? expectedTotalExp - newExp
+        : undefined;
+    const remainingTimeToLevelUp = !isNaN(expGainRatio) && isValid(expGainRatio) && expGainRatio > 0.0
+        ? (time / expGainRatio) * (100 - newExpRatio)
+        : undefined;
     // const mobCountToLevelUp = Math.round((expectedTotalExp - newExp) / mobInfo.exp);
 
     // 기본 정보
-    const expGainString = expGain && expGain >= 0 ? addCommaToNumber(expGain) : "-";
-    const mesoGainString = mesoGain && mesoGain >= 0 ? addFormatToMeso(mesoGain) : "-";
+    const expGainString = expGain && expGain >= 0
+        ? addCommaToNumber(expGain)
+        : "-";
+    const mesoGainString = mesoGain && mesoGain >= 0
+        ? addFormatToMeso(mesoGain)
+        : "-";
 
     // 추가 정보
-    const expGainRatioString = !isNaN(expGainRatio) && isValid(expGainRatio) && expGainRatio >= 0.0 ? `${addCommaToNumber(expGainRatio)}%` : "-";
-    const expectedTotalExpString = expectedTotalExp ? `약 ${addCommaToNumber(expectedTotalExp)}` : "-";
-    const expToLevelUpString = expToLevelUp ? `약 ${addCommaToNumber(expToLevelUp)}` : "-";
-    const remainingTimeToLevelUpString =
-        typeof (remainingTimeToLevelUp) !== "undefined" ? (remainingTimeToLevelUp >= 1 ? `약 ${secondToTimeString(remainingTimeToLevelUp)}` : "1초 미만") : "-";
+    const expGainRatioString = !isNaN(expGainRatio) && isValid(expGainRatio) && expGainRatio >= 0.0
+        ? `${addCommaToNumber(expGainRatio)}%`
+        : "-";
+    const expectedTotalExpString = expectedTotalExp
+        ? `약 ${addCommaToNumber(expectedTotalExp)}`
+        : "-";
+    const expToLevelUpString = expToLevelUp
+        ? `약 ${addCommaToNumber(expToLevelUp)}`
+        : "-";
+    const remainingTimeToLevelUpString = typeof (remainingTimeToLevelUp) !== "undefined"
+        ? (remainingTimeToLevelUp >= 1
+            ? `약 ${secondToTimeString(remainingTimeToLevelUp)}`
+            : "1초 미만")
+        : "-";
     // const mobCountToLevelUpString = mobCountToLevelUp ? `약 ${addCommaToNumber(mobCountToLevelUp)}마리` : "-";
 
     const timeString = secondToTimeString(time);
