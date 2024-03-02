@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./InputInfo.css";
 import { addCommaToNumber, removeCommaFromNumber } from "../../util";
 
@@ -7,25 +7,35 @@ const InputInfo = ({ userInfo, onChangeUserInfo }) => {
     const [isNewExpRatioEndsWithDot, setIsNewExpRatioEndsWithDot] = useState(false);
 
     const onChangeOldExp = (e) => {
-        const oldExp = e.target.value.length !== 0 ? removeCommaFromNumber(e.target.value) : undefined;
+        if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
+            const oldExp = e.target.value.length !== 0
+                ? removeCommaFromNumber(e.target.value)
+                : undefined;
 
-        onChangeUserInfo({
-            ...userInfo,
-            oldExp: oldExp
-        })
+            onChangeUserInfo({
+                ...userInfo,
+                oldExp: oldExp
+            })
+        }
     }
     const onChangeNewExp = (e) => {
-        const newExp = e.target.value.length !== 0 ? removeCommaFromNumber(e.target.value) : undefined;
+        if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
+            const newExp = e.target.value.length !== 0
+                ? removeCommaFromNumber(e.target.value)
+                : undefined;
 
-        onChangeUserInfo({
-            ...userInfo,
-            newExp: newExp
-        })
+            onChangeUserInfo({
+                ...userInfo,
+                newExp: newExp
+            })
+        }
     }
     const onChangeOldExpRatio = (e) => {
-        const oldExpRatio = e.target.value.length !== 0 ? parseFloat(e.target.value) : undefined;
+        const oldExpRatio = e.target.value.length !== 0
+            ? parseFloat(e.target.value)
+            : undefined;
 
-        if (oldExpRatio <= 100.00 || typeof (oldExpRatio) === "undefined") {
+        if ((oldExpRatio >= 0.00 && oldExpRatio <= 100.00) || typeof (oldExpRatio) === "undefined") {
             setIsOldExpRatioEndsWithDot(e.target.value.endsWith('.'));
 
             onChangeUserInfo({
@@ -33,13 +43,19 @@ const InputInfo = ({ userInfo, onChangeUserInfo }) => {
                 oldExpRatio: oldExpRatio
             })
         } else {
-            alert("100 이상의 값은 입력할 수 없어요 :(")
+            if (oldExpRatio < 0.00 || oldExpRatio > 100.00) {
+                alert("1부터 100 사이의 값만 입력할 수 있어요 :(")
+            } else {
+                alert("숫자만 입력할 수 있어요 :(")
+            }
         }
     }
     const onChangeNewExpRatio = (e) => {
-        const newExpRatio = e.target.value.length !== 0 ? parseFloat(e.target.value) : undefined;
+        const newExpRatio = e.target.value.length !== 0
+            ? parseFloat(e.target.value)
+            : undefined;
 
-        if (newExpRatio <= 100.00 || typeof (newExpRatio) === "undefined") {
+        if ((newExpRatio >= 0.00 && newExpRatio <= 100.00) || typeof (newExpRatio) === "undefined") {
             setIsNewExpRatioEndsWithDot(e.target.value.endsWith('.'));
 
             onChangeUserInfo({
@@ -47,33 +63,51 @@ const InputInfo = ({ userInfo, onChangeUserInfo }) => {
                 newExpRatio: newExpRatio
             })
         } else {
-            alert("100 이상의 값은 입력할 수 없어요 :(")
+            if (newExpRatio < 0.00 || newExpRatio > 100.00) {
+                alert("1부터 100 사이의 값만 입력할 수 있어요 :(")
+            } else {
+                alert("숫자만 입력할 수 있어요 :(")
+            }
         }
     }
     const onChangeOldMeso = (e) => {
-        const oldMeso = e.target.value.length !== 0 ? removeCommaFromNumber(e.target.value) : undefined;
+        if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
+            const oldMeso = e.target.value.length !== 0
+                ? removeCommaFromNumber(e.target.value)
+                : undefined;
 
-        if ((oldMeso <= 2147483647) || typeof (oldMeso) === "undefined") {
-            onChangeUserInfo({
-                ...userInfo,
-                oldMeso: oldMeso
-            })
-        } else {
-            alert("2,147,483,647 메소 이상은 지원하지 않아요 :(")
+            if ((oldMeso <= 2147483647) || typeof (oldMeso) === "undefined") {
+                onChangeUserInfo({
+                    ...userInfo,
+                    oldMeso: oldMeso
+                })
+            } else {
+                alert("2,147,483,647 메소 이상은 지원하지 않아요 :(")
+            }
         }
     }
     const onChangeNewMeso = (e) => {
-        const newMeso = e.target.value.length !== 0 ? removeCommaFromNumber(e.target.value) : undefined;
+        if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
+            const newMeso = e.target.value.length !== 0
+                ? removeCommaFromNumber(e.target.value)
+                : undefined;
 
-        if ((newMeso <= 2147483647) || typeof (newMeso) === "undefined") {
-            onChangeUserInfo({
-                ...userInfo,
-                newMeso: newMeso
-            })
-        } else {
-            alert("2,147,483,647 메소 이상은 지원하지 않아요 :)")
+            if ((newMeso <= 2147483647) || typeof (newMeso) === "undefined") {
+                onChangeUserInfo({
+                    ...userInfo,
+                    newMeso: newMeso
+                })
+            } else {
+                alert("2,147,483,647 메소 이상은 지원하지 않아요 :)")
+            }
         }
     }
+    useEffect(() => {
+        console.log(`oldMeso = ${userInfo.oldMeso}`)
+    }, [userInfo.oldMeso])
+    useEffect(() => {
+        console.log(`newMeso = ${userInfo.newMeso}`)
+    }, [userInfo.newMeso])
 
     return (<div className="InputInfo">
         <section>
