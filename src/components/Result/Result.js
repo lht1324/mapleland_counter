@@ -33,7 +33,7 @@ const Result = ({ time, userInfo }) => {
         ? expectedTotalExp - newExp
         : undefined;
     const remainingTimeToLevelUp = !isNaN(expGainRatio) && isValid(expGainRatio) && expGainRatio > 0.0
-        ? (time / expGainRatio) * (100 - newExpRatio)
+        ? Math.round((time / expGainRatio) * (100 - newExpRatio))
         : undefined;
     // const mobCountToLevelUp = Math.round((expectedTotalExp - newExp) / mobInfo.exp);
 
