@@ -4,10 +4,16 @@
 
 .Home .top_section {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .Home .bottom_section {
     display: flex;
     flex-direction: row;
+}
+
+@media screen and (max-width: 1024px) {
+    .Home .top_section {
+        flex-direction: column;
+    }
 }
