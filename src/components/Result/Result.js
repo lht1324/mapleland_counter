@@ -1,4 +1,5 @@
 import { addCommaToNumber, addFormatToMeso, isValid, secondToTimeString } from "../../util";
+import TableItem from "../public/TableItem";
 import "./Result.css";
 
 const Result = ({ time, userInfo }) => {
@@ -20,19 +21,6 @@ const Result = ({ time, userInfo }) => {
     //     exp: 135,
     //     meso: 100
     // }
-
-    const makeTableRow = (type, headerText, itemText) => {
-        const itemStyle = {
-            backgroundColor: type !== "default"
-                ? type === "exp" ? "rgb(175, 238, 0)" : "rgb(255, 221, 17)"
-                : "white",
-            color: "black"
-        }
-        return <tr style={itemStyle}>
-            <th className={type}>{headerText}</th>
-            <td className={type}>{itemText}</td>
-        </tr>
-    }
 
     const expGain = newExp - oldExp;
     const mesoGain = newMeso - oldMeso;
@@ -66,17 +54,37 @@ const Result = ({ time, userInfo }) => {
         <div className="info_section">
             <h2>기본 정보</h2>
             <table>
-                {makeTableRow("exp", "경험치 획득량", expGainString)}
-                {makeTableRow("meso", "메소 획득량", mesoGainString)}
+                <tbody>
+                    <tr className="exp">
+                        <TableItem type={"header"} text={"경험치 획득량"} />
+                        <TableItem type={"body"} text={expGainString} />
+                    </tr>
+                    <tr className="meso">
+                        <TableItem type={"header"} text={"메소 획득량"} />
+                        <TableItem type={"body"} text={mesoGainString} />
+                    </tr>
+                </tbody>
             </table>
             <h2>추가 정보</h2>
             <table>
-                {makeTableRow("exp", "경험치 획득 비율", expGainRatioString)}
-                {makeTableRow("exp", "전체 경험치", expectedTotalExpString)}
-                {makeTableRow("exp", "레벨업 필요 경험치", expToLevelUpString)}
-                {makeTableRow("exp", "레벨업까지 남은 시간", remainingTimeToLevelUpString)}
-
-                {/* {makeTableRow("default", `레벨업까지 남은 ${mobInfo.name}`, mobCountToLevelUpString)} */}
+                <tbody>
+                    <tr className="exp">
+                        <TableItem type={"header"} text={"경험치 획득 비율"} />
+                        <TableItem type={"body"} text={expGainRatioString} />
+                    </tr>
+                    <tr className="exp">
+                        <TableItem type={"header"} text={"전체 경험치"} />
+                        <TableItem type={"body"} text={expectedTotalExpString} />
+                    </tr>
+                    <tr className="exp">
+                        <TableItem type={"header"} text={"레벨업에 필요한 경험치"} />
+                        <TableItem type={"body"} text={expToLevelUpString} />
+                    </tr>
+                    <tr className="exp">
+                        <TableItem type={"header"} text={"레벨업까지 남은 시간"} />
+                        <TableItem type={"body"} text={remainingTimeToLevelUpString} />
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>)

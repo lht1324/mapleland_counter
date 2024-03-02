@@ -49,7 +49,7 @@ const Timer = ({ onFinishTimer }) => {
         setTime(0);
         setInitialTime(0);
         setIsTimerRunning(false);
-    }, []);
+    }, [time, initialTime, onFinishTimer]);
 
     const onClickReset = useCallback(() => {
         setTime(0);
@@ -84,7 +84,7 @@ const Timer = ({ onFinishTimer }) => {
         return () => {
             clearInterval(timer);
         }
-    }, [time, isTimerRunning]);
+    }, [time, initialTime, onFinishTimer, isTimerRunning]);
     
     if (isValid(time)) {
         return (

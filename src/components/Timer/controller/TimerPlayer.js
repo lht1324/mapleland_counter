@@ -15,10 +15,10 @@ const TimerPlayer = (props) => {
     } = props;
 
     return (<div className="TimerPlayer">
-        <ImageButton src={PlayImage} onClick={onClickPlay} />
-        <ImageButton src={PauseImage} onClick={onClickPause} />
-        <ImageButton src={StopImage} onClick={onClickStop} />
-        <ImageButton src={ResetImage} onClick={onClickReset} />
+        <ImageButton src={PlayImage} alt={"재생"} onClick={onClickPlay} />
+        <ImageButton src={PauseImage} alt={"일시정지"} onClick={onClickPause} />
+        <ImageButton src={StopImage} alt={"정지"} onClick={onClickStop} />
+        <ImageButton src={ResetImage} alt={"초기화"} onClick={onClickReset} />
     </div>)
 }
 

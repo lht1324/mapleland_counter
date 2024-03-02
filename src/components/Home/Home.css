@@ -12,7 +12,8 @@
     flex-direction: row;
 }
 
-@media screen and (max-width: 1024px) {
+/* 1024*768 미만은 줄어든 화면이 보여진다 */
+@media screen and (max-width: 1023px) {
     .Home .top_section {
         flex-direction: column;
     }
