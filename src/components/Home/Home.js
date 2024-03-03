@@ -15,7 +15,15 @@ const Home = () => {
         oldExpRatio: undefined,
         newExpRatio: undefined,
         oldMeso: undefined,
-        newMeso: undefined
+        newMeso: undefined,
+        oldHpPrice: undefined,
+        oldHpCount: undefined,
+        oldMpPrice: undefined,
+        oldMpCount: undefined,
+        newHpPrice: undefined,
+        newHpCount: undefined,
+        newMpPrice: undefined,
+        newMpCount: undefined
     });
 
     // second

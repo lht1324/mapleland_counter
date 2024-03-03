@@ -32,6 +32,18 @@ const TimeDisplay = () => {
         }
     }, [time]);
 
+    useEffect(() => {
+        if (hour === 0 && minute === 0 && second === 0) {
+            document.title = "메이플랜드 타이머"
+        } else {
+            const formattedHour = hour < 10 ? `0${hour}` : hour
+            const formattedMinute = minute < 10 ? `0${minute}` : minute
+            const formattedSecond = second < 10 ? `0${second}` : second
+            
+            document.title = `${formattedHour}:${formattedMinute}:${formattedSecond}`
+        }
+    }, [hour, minute, second])
+
     return (<div className="TimeDisplay">
         <TimeCounter className="hour_section" time={hour} />
         {divider}
