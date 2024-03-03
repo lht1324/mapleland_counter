@@ -7,3 +7,10 @@
     display: flex;
     flex-direction: row;
 }
+
+/* 1024*768 미만은 줄어든 화면이 보여진다 */
+@media screen and (max-width: 1023px) {
+    .InputInfo {
+        margin-top: 12px;
+    }
+}
