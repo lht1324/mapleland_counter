@@ -3,6 +3,7 @@ import Timer from "../Timer/Timer";
 import InputInfo from "../InputInfo/InputInfo";
 import Result from "../Result/Result";
 import { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import KakaoAd from "../public/KakaoAd";
 
 const Home = () => {
@@ -29,7 +30,7 @@ const Home = () => {
 
     return (
         <div className="Home">
-            <KakaoAd key={"DAN-3P8InoCwjKVzKphh"} />
+            <KakaoAd key={"DAN-pqKngRwzXEqVrYUe"} />
             <div className="main_container" >
                 <div className="top_section">
                     <Timer onFinishTimer={onFinishTimer} />
@@ -42,6 +43,7 @@ const Home = () => {
                 </div>
             </div>
             <KakaoAd key={"DAN-3P8InoCwjKVzKphh"} />
+            <Analytics/>
         </div>
     )
 }

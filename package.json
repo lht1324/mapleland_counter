@@ -3,9 +3,12 @@
   "version": "0.1.1",
   "private": true,
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@vercel/analytics": "^1.2.2",
+    "cross-env": "^7.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.22.1",
@@ -14,8 +17,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set BROWSER=none&& react-scripts start",
-    "build": "react-scripts build",
+    "start": "cross-env REACT_APP_SERVICE_TYPE=DEV react-scripts start",
+    "build": "cross-env REACT_APP_SERVICE_TYPE=PROD react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
