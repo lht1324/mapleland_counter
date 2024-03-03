@@ -6,8 +6,8 @@
 .InputInfo section {
     padding: 20px;
     margin: 10px;
-    border: 1px solid grey;
-    border-radius: 5px;
+    border: 2px solid black;
+    border-radius: 15px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
     margin-bottom: 10px;
     padding: 5px;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 2px solid black;
     font-size: 16px;
     font-family: "Nanum Gothic";
     font-weight: bold;
