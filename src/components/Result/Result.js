@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { addCommaToNumber, addKoreanFormatToNumber, isValid, secondToTimeString } from "../../util";
 import TableItem from "../public/TableItem";
 import "./Result.css";
@@ -11,14 +10,12 @@ const Result = ({ time, userInfo }) => {
         newExpRatio,
         oldMeso,
         newMeso,
-        oldHpPrice,
-        oldHpCount,
-        oldMpPrice,
-        oldMpCount,
-        newHpPrice,
-        newHpCount,
-        newMpPrice,
-        newMpCount
+        hpPotionPrice,
+        mpPotionPrice,
+        oldHpPotionCount,
+        oldMpPotionCount,
+        newHpPotionCount,
+        newMpPotionCount
     } = userInfo;
 
     /**
@@ -33,15 +30,9 @@ const Result = ({ time, userInfo }) => {
 
     const expGain = newExp - oldExp;
     const mesoGain = newMeso - oldMeso;
-    const potionUsageCountHp = oldHpCount - newHpCount;
-    const potionUsageCountMp = oldMpCount - newMpCount;
-    const potionUsagePriceHp = oldHpPrice;
-    const potionUsagePriceMp = oldMpPrice;
-    const incomeStatement = mesoGain - (potionUsagePriceHp * potionUsageCountHp + potionUsagePriceMp * potionUsageCountMp);
-
-    useEffect(() => {
-        console.log(`incomeStatement = ${incomeStatement}`);
-    }, [incomeStatement])
+    const potionUsageCountHp = oldHpPotionCount - newHpPotionCount;
+    const potionUsageCountMp = oldMpPotionCount - newMpPotionCount;
+    const incomeStatement = mesoGain - (hpPotionPrice * potionUsageCountHp + mpPotionPrice * potionUsageCountMp);
 
     const expGainRatio = (newExpRatio - oldExpRatio).toFixed(2);
     const expectedTotalExp = newExp > oldExp && newExpRatio > oldExpRatio
@@ -68,11 +59,11 @@ const Result = ({ time, userInfo }) => {
     const potionUsageCountMpString = potionUsageCountMp && potionUsageCountMp >= 0
         ? `${addCommaToNumber(potionUsageCountMp)}개`
         : "-";
-    const potionUsagePriceHpString = potionUsagePriceHp && potionUsagePriceHp >= 0
-        ? `${addKoreanFormatToNumber(potionUsagePriceHp * potionUsageCountHp)} 메소`
+    const potionUsagePriceHpString = hpPotionPrice && hpPotionPrice >= 0
+        ? `${addKoreanFormatToNumber(hpPotionPrice * potionUsageCountHp)} 메소`
         : "-";
-    const potionUsagePriceMpString = potionUsagePriceMp && potionUsagePriceMp >= 0
-        ? `${addKoreanFormatToNumber(potionUsagePriceMp * potionUsageCountMp)} 메소`
+    const potionUsagePriceMpString = mpPotionPrice && mpPotionPrice >= 0
+        ? `${addKoreanFormatToNumber(mpPotionPrice * potionUsageCountMp)} 메소`
         : "-";
     const incomeStatementString = (incomeStatement || incomeStatement === 0) && mesoGainString !== "-"
         ? `${incomeStatement > 0 ? "+ " : ""}${addKoreanFormatToNumber(incomeStatement)} 메소`

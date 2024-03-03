@@ -2,8 +2,8 @@ import { useState } from "react";
 import "./InputInfo.css";
 import { addCommaToNumber, removeCommaFromNumber } from "../../util";
 import Spacer from "../public/Spacer";
-import InputSectionNormal from "./InputSectionNormal";
-import InputSectionPotion from "./InputSectionPotion";
+import InputSection from "./InputSection";
+import InputItem from "./InputItem";
 
 const InputInfo = ({ userInfo, onChangeUserInfo }) => {
     const [isOldExpRatioEndsWithDot, setIsOldExpRatioEndsWithDot] = useState(false);
@@ -105,150 +105,178 @@ const InputInfo = ({ userInfo, onChangeUserInfo }) => {
             }
         }
     }
-    const onChangeOldHpPrice = (e) => {
+    const onChangeHpPotionPrice = (e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
-            const oldHpPrice = e.target.value.length !== 0
+            const hpPotionPrice = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
             onChangeUserInfo({
                 ...userInfo,
-                oldHpPrice: oldHpPrice
+                hpPotionPrice: hpPotionPrice
             })
         }
     }
-    const onChangeOldHpCount = (e) => {
+    const onChangeMpPotionPrice = (e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
-            const oldHpCount = e.target.value.length !== 0
+            const mpPotionPrice = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
             onChangeUserInfo({
                 ...userInfo,
-                oldHpCount: oldHpCount
+                mpPotionPrice: mpPotionPrice
             })
         }
     }
-    const onChangeOldMpPrice = (e) => {
+    const onChangeOldHpPotionCount = (e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
-            const oldMpPrice = e.target.value.length !== 0
+            const oldHpPotionCount = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
             onChangeUserInfo({
                 ...userInfo,
-                oldMpPrice: oldMpPrice
+                oldHpPotionCount: oldHpPotionCount
             })
         }
     }
-    const onChangeOldMpCount = (e) => {
+    const onChangeOldMpPotionCount = (e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
-            const oldMpCount = e.target.value.length !== 0
+            const oldMpPotionCount = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
             onChangeUserInfo({
                 ...userInfo,
-                oldMpCount: oldMpCount
+                oldMpPotionCount: oldMpPotionCount
             })
         }
     }
-    const onChangeNewHpPrice = (e) => {
+    const onChangeNewHpPotionCount = (e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
-            const newHpPrice = e.target.value.length !== 0
+            const newHpPotionCount = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
             onChangeUserInfo({
                 ...userInfo,
-                newHpPrice: newHpPrice
+                newHpPotionCount: newHpPotionCount
             })
         }
     }
-    const onChangeNewHpCount = (e) => {
+    const onChangeNewMpPotionCount = (e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
-            const newHpCount = e.target.value.length !== 0
+            const newMpPotionCount = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
             onChangeUserInfo({
                 ...userInfo,
-                newHpCount: newHpCount
+                newMpPotionCount: newMpPotionCount
             })
         }
     }
-    const onChangeNewMpPrice = (e) => {
-        if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
-            const newMpPrice = e.target.value.length !== 0
-                ? removeCommaFromNumber(e.target.value)
-                : undefined;
-
-            onChangeUserInfo({
-                ...userInfo,
-                newMpPrice: newMpPrice
-            })
-        }
-    }
-    const onChangeNewMpCount = (e) => {
-        if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
-            const newMpCount = e.target.value.length !== 0
-                ? removeCommaFromNumber(e.target.value)
-                : undefined;
-
-            onChangeUserInfo({
-                ...userInfo,
-                newMpCount: newMpCount
-            })
-        }
-    }
+    // 가격 | 전후 포션 개수
 
     return (<div className="InputInfo">
         <div className="input_section_container">
-            <InputSectionNormal
-                title={"사냥 전 정보"}
-                exp={userInfo.oldExp ? addCommaToNumber(userInfo.oldExp) : userInfo.oldExp}
-                expRatio={userInfo.oldExpRatio ? (isOldExpRatioEndsWithDot ? `${userInfo.oldExpRatio}.` : `${userInfo.oldExpRatio}`) : ""}
-                meso={userInfo.oldMeso ? addCommaToNumber(userInfo.oldMeso) : userInfo.oldMeso}
-                onChangeExp={onChangeOldExp}
-                onChangeExpRatio={onChangeOldExpRatio}
-                onChangeMeso={onChangeOldMeso}
-            />
+            <InputSection title={"사냥 전 정보"}>
+                <InputItem
+                    placeholder={"경험치"}
+                    value={userInfo.oldExp ? addCommaToNumber(userInfo.oldExp) : userInfo.oldExp}
+                    onChange={onChangeOldExp}
+                    suffix={"EXP"}
+                />
+                <InputItem
+                    placeholder={"경험치 %"}
+                    value={userInfo.oldExpRatio ? (isOldExpRatioEndsWithDot ? `${userInfo.oldExpRatio}.` : `${userInfo.oldExpRatio}`) : ""}
+                    onChange={onChangeOldExpRatio}
+                    suffix={"%"}
+                    maxLength={5}
+                />
+                <InputItem
+                    placeholder={"메소"}
+                    value={userInfo.oldMeso ? addCommaToNumber(userInfo.oldMeso) : userInfo.oldMeso}
+                    onChange={onChangeOldMeso}
+                    suffix={"메소"}
+                    maxLength={13}
+                />
+            </InputSection>
             <Spacer width={12} />
-            <InputSectionNormal
-                title={"사냥 후 정보"}
-                exp={userInfo.newExp ? addCommaToNumber(userInfo.newExp) : userInfo.newExp}
-                expRatio={userInfo.newExpRatio ? (isNewExpRatioEndsWithDot ? `${userInfo.newExpRatio}.` : `${userInfo.newExpRatio}`) : ""}
-                meso={userInfo.newMeso ? addCommaToNumber(userInfo.newMeso) : userInfo.newMeso}
-                onChangeExp={onChangeNewExp}
-                onChangeExpRatio={onChangeNewExpRatio}
-                onChangeMeso={onChangeNewMeso}
-            />
+            <InputSection title={"사냥 후 정보"}>
+                <InputItem
+                    placeholder={"경험치"}
+                    value={userInfo.newExp ? addCommaToNumber(userInfo.newExp) : userInfo.newExp}
+                    onChange={onChangeNewExp}
+                    suffix={"EXP"}
+                />
+                <InputItem
+                    placeholder={"경험치 %"}
+                    value={userInfo.newExpRatio ? (isNewExpRatioEndsWithDot ? `${userInfo.newExpRatio}.` : `${userInfo.newExpRatio}`) : ""}
+                    onChange={onChangeNewExpRatio}
+                    suffix={"%"}
+                    maxLength={5}
+                />
+                <InputItem
+                    placeholder={"메소"}
+                    value={userInfo.newMeso ? addCommaToNumber(userInfo.newMeso) : userInfo.newMeso}
+                    onChange={onChangeNewMeso}
+                    suffix={"메소"}
+                    maxLength={13}
+                />
+            </InputSection>
         </div>
         <Spacer height={12} />
         <div className="input_section_container">
-            <InputSectionPotion
-                title={"사냥 전 포션"}
-                hpPrice={userInfo.oldHpPrice ? addCommaToNumber(userInfo.oldHpPrice) : userInfo.oldHpPrice}
-                hpCount={userInfo.oldHpCount ? addCommaToNumber(userInfo.oldHpCount) : userInfo.oldHpCount}
-                mpPrice={userInfo.oldMpPrice ? addCommaToNumber(userInfo.oldMpPrice) : userInfo.oldMpPrice}
-                mpCount={userInfo.oldMpCount ? addCommaToNumber(userInfo.oldMpCount) : userInfo.oldMpCount}
-                onChangeHpPrice={onChangeOldHpPrice}
-                onChangeHpCount={onChangeOldHpCount}
-                onChangeMpPrice={onChangeOldMpPrice}
-                onChangeMpCount={onChangeOldMpCount}
-            />
+            <InputSection title={"포션 가격"}>
+                <InputItem
+                    placeholder={"개당 가격"}
+                    value={userInfo.hpPotionPrice ? addCommaToNumber(userInfo.hpPotionPrice) : userInfo.hpPotionPrice}
+                    onChange={onChangeHpPotionPrice}
+                    suffix={"메소"}
+                    style={{ border: "2px solid #FF0000"}}
+                />
+                <InputItem
+                    placeholder={"개당 가격"}
+                    value={userInfo.mpPotionPrice ? addCommaToNumber(userInfo.mpPotionPrice) : userInfo.mpPotionPrice}
+                    onChange={onChangeMpPotionPrice}
+                    suffix={"메소"}
+                    style={{ border: "2px solid #0000FF"}}
+                />
+            </InputSection>
             <Spacer width={12} />
-            <InputSectionPotion
-                title={"사냥 후 포션"}
-                hpPrice={userInfo.newHpPrice ? addCommaToNumber(userInfo.newHpPrice) : userInfo.newHpPrice}
-                hpCount={userInfo.newHpCount ? addCommaToNumber(userInfo.newHpCount) : userInfo.newHpCount}
-                mpPrice={userInfo.newMpPrice ? addCommaToNumber(userInfo.newMpPrice) : userInfo.newMpPrice}
-                mpCount={userInfo.newMpCount ? addCommaToNumber(userInfo.newMpCount) : userInfo.newMpCount}
-                onChangeHpPrice={onChangeNewHpPrice}
-                onChangeHpCount={onChangeNewHpCount}
-                onChangeMpPrice={onChangeNewMpPrice}
-                onChangeMpCount={onChangeNewMpCount}
-            />
+            <InputSection title={"사냥 전"}>
+                <InputItem
+                    placeholder={"개수"}
+                    value={userInfo.oldHpPotionCount ? addCommaToNumber(userInfo.oldHpPotionCount) : userInfo.oldHpPotionCount}
+                    onChange={onChangeOldHpPotionCount}
+                    suffix={"개"}
+                    style={{ border: "2px solid #FF0000"}}
+                />
+                <InputItem
+                    placeholder={"개수"}
+                    value={userInfo.oldMpPotionCount ? addCommaToNumber(userInfo.oldMpPotionCount) : userInfo.oldMpPotionCount}
+                    onChange={onChangeOldMpPotionCount}
+                    suffix={"개"}
+                    style={{ border: "2px solid #0000FF"}}
+                />
+                <legend>사냥 후</legend>
+                <InputItem
+                    placeholder={"개수"}
+                    value={userInfo.newHpPotionCount ? addCommaToNumber(userInfo.newHpPotionCount) : userInfo.newHpPotionCount}
+                    onChange={onChangeNewHpPotionCount}
+                    suffix={"개"}
+                    style={{ border: "2px solid #FF0000"}}
+                />
+                <InputItem
+                    placeholder={"개수"}
+                    value={userInfo.newMpPotionCount ? addCommaToNumber(userInfo.newMpPotionCount) : userInfo.newMpPotionCount}
+                    onChange={onChangeNewMpPotionCount}
+                    suffix={"개"}
+                    style={{ border: "2px solid #0000FF"}}
+                />
+            </InputSection>
         </div>
     </div>)
 }
