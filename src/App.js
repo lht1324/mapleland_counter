@@ -8,8 +8,9 @@ const supabaseUrl = SupabaseConfig.projectUrl
 const supabaseKey = SupabaseConfig.apiKey
 
 function App() {
-    const supabase = createClient(supabaseUrl, supabaseKey);
-    
+    console.log(`supabaseKey = ${supabaseKey}\nsupabaseUrl = ${supabaseUrl}`)
+    // const supabase = createClient(supabaseUrl, supabaseKey);
+
     return (
         <div className="App">
             <Routes>
