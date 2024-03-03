@@ -6,9 +6,9 @@ import { SupabaseConfig } from './config/SupabaseConfig';
 
 const supabaseUrl = SupabaseConfig.projectUrl
 const supabaseKey = SupabaseConfig.apiKey
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 function App() {
+    const supabase = createClient(supabaseUrl, supabaseKey);
     return (
         <div className="App">
             <Routes>
