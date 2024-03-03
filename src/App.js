@@ -9,6 +9,7 @@ const supabaseKey = SupabaseConfig.apiKey
 
 function App() {
     const supabase = createClient(supabaseUrl, supabaseKey);
+    
     return (
         <div className="App">
             <Routes>
