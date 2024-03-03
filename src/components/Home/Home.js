@@ -5,6 +5,7 @@ import Result from "../Result/Result";
 import { useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import KakaoAd from "../public/KakaoAd";
+import Spacer from "../public/Spacer";
 
 const Home = () => {
     // 시간 0이고 5분 후 경험치 메소 !isNan일 때 Result 출력
@@ -34,6 +35,7 @@ const Home = () => {
             <div className="main_container" >
                 <div className="top_section">
                     <Timer onFinishTimer={onFinishTimer} />
+                    <Spacer width={12} />
                     <InputInfo userInfo={userInfo} onChangeUserInfo={onChangeUserInfo} />
                 </div>
                 <div className="bottom_section">

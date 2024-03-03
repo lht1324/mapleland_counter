@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./InputInfo.css";
 import { addCommaToNumber, removeCommaFromNumber } from "../../util";
+import Spacer from "../public/Spacer";
 
 const InputInfo = ({ userInfo, onChangeUserInfo }) => {
     const [isOldExpRatioEndsWithDot, setIsOldExpRatioEndsWithDot] = useState(false);
@@ -131,6 +132,7 @@ const InputInfo = ({ userInfo, onChangeUserInfo }) => {
                 <p>메소</p>
             </div>
         </section>
+        <Spacer width={12} />
         <section>
             <legend>사냥 후</legend>
             <div className="input_section">
