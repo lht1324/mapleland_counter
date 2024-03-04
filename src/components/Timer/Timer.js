@@ -5,6 +5,8 @@ import { createContext, memo, useCallback, useEffect, useState } from "react";
 import { isValid } from "../../util";
 import TimerModifier from "./controller/TimerModifier";
 import TimerPlayer from "./controller/TimerPlayer";
+import TimerAlarm from "./alarm/TimerAlarm";
+import Spacer from "../public/Spacer";
 
 export const TimerStateContext = createContext();
 
@@ -103,7 +105,10 @@ const Timer = ({ onFinishTimer }) => {
                 <div className="Timer">
                     <div className="left_section">
                         <TimeDisplay />
+                        <Spacer height={12} />
                         <TimerPlayer {...timerPlayerProps} />
+                        <Spacer height={12} />
+                        <TimerAlarm />
                     </div>
                     <div className="right_section">
                         <TimerModifier onClickSetTime={onClickSetTime} />

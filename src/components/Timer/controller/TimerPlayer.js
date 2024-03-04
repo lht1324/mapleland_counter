@@ -1,10 +1,10 @@
 import { memo } from "react";
 import "./TimerPlayer.css";
 import ImageButton from "../../public/ImageButton";
-import PlayImage from "../../../assets/ic_timer_play.svg";
-import PauseImage from "../../../assets/ic_timer_pause.svg";
-import StopImage from "../../../assets/ic_timer_stop.svg";
-import ResetImage from "../../../assets/ic_timer_reset.svg";
+import PlayImage from "../../../assets/images/ic_timer_play.svg";
+import PauseImage from "../../../assets/images/ic_timer_pause.svg";
+import StopImage from "../../../assets/images/ic_timer_stop.svg";
+import ResetImage from "../../../assets/images/ic_timer_reset.svg";
 
 const TimerPlayer = (props) => {
     const {
