@@ -46,11 +46,13 @@ const Timer = ({ onFinishTimer }) => {
     }, []);
 
     const onClickStop = useCallback(() => {
-        onFinishTimer(initialTime - time);
-        setTime(0);
-        setInitialTime(0);
-        setIsTimerRunning(false);
-    }, [time, initialTime, onFinishTimer]);
+        if (isTimerRunning) {
+            onFinishTimer(initialTime - time);
+            setTime(0);
+            setInitialTime(0);
+            setIsTimerRunning(false);
+        }
+    }, [time, initialTime, isTimerRunning, onFinishTimer]);
 
     const onClickReset = useCallback(() => {
         setTime(0);
@@ -74,21 +76,22 @@ const Timer = ({ onFinishTimer }) => {
             }, INTERVAL);
     
             if (time <= 0 && isTimerRunning) {
-                console.log(`clear 1`)
                 onFinishTimer(initialTime);
                 setInitialTime(0);
                 setIsTimerRunning(false);
-                clearInterval(timer);
+                return () => {
+                    clearInterval(timer);
+                }
             }
     
             // pause
             if (!isTimerRunning) {
-                console.log(`clear 2, ${timer}`)
-                clearInterval(timer);
+                return () => {
+                    clearInterval(timer);
+                }
             }
     
             return () => {
-                console.log(`clear 3, ${timer}`)
                 clearInterval(timer);
             }
         }
