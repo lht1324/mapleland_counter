@@ -1,5 +1,6 @@
 import TimeDisplay from "./display/TimeDisplay";
 import "./Timer.css";
+import { clearInterval, setInterval } from 'worker-timers';
 import { createContext, memo, useCallback, useEffect, useState } from "react";
 import { isValid } from "../../util";
 import TimerModifier from "./controller/TimerModifier";
@@ -65,27 +66,34 @@ const Timer = ({ onFinishTimer }) => {
     }
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setTime((prevTime) => prevTime - INTERVAL / INTERVAL);
-        }, INTERVAL);
-
-        if (time <= 0 && isTimerRunning) {
-            onFinishTimer(initialTime);
-            setInitialTime(0);
-            setIsTimerRunning(false);
-            clearInterval(timer);
-        }
-
-        // pause
-        if (!isTimerRunning) {
-            clearInterval(timer);
-        }
-
-        return () => {
-            clearInterval(timer);
+        if (isTimerRunning) {
+            const timer = setInterval(() => {
+                setTime((prevTime) => {
+                    return prevTime - INTERVAL / INTERVAL
+                });
+            }, INTERVAL);
+    
+            if (time <= 0 && isTimerRunning) {
+                console.log(`clear 1`)
+                onFinishTimer(initialTime);
+                setInitialTime(0);
+                setIsTimerRunning(false);
+                clearInterval(timer);
+            }
+    
+            // pause
+            if (!isTimerRunning) {
+                console.log(`clear 2, ${timer}`)
+                clearInterval(timer);
+            }
+    
+            return () => {
+                console.log(`clear 3, ${timer}`)
+                clearInterval(timer);
+            }
         }
     }, [time, initialTime, onFinishTimer, isTimerRunning]);
-    
+
     if (isValid(time)) {
         return (
             <TimerStateContext.Provider value={time} >

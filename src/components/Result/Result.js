@@ -32,7 +32,8 @@ const Result = ({ time, userInfo }) => {
     const mesoGain = newMeso - oldMeso;
     const potionUsageCountHp = oldHpPotionCount - newHpPotionCount;
     const potionUsageCountMp = oldMpPotionCount - newMpPotionCount;
-    const incomeStatement = mesoGain - (hpPotionPrice * potionUsageCountHp + mpPotionPrice * potionUsageCountMp);
+    const usagePrice = hpPotionPrice * potionUsageCountHp + mpPotionPrice * potionUsageCountMp
+    const incomeStatement = (mesoGain ? mesoGain : 0) - (usagePrice ? usagePrice : 0);
 
     const expGainRatio = (newExpRatio - oldExpRatio).toFixed(2);
     const expectedTotalExp = newExp > oldExp && newExpRatio > oldExpRatio
@@ -152,7 +153,7 @@ const Result = ({ time, userInfo }) => {
                             }}
                         />
                     </tr>
-                    <tr className="meso">
+                    <tr className="default">
                         <TableItem type={"header"} text={"손익 계산"} />
                         <TableItem
                             type={"body"}
