@@ -54,16 +54,16 @@ const Result = ({ time, userInfo }) => {
     const mesoGainString = mesoGain && mesoGain >= 0
         ? `${addKoreanFormatToNumber(mesoGain)} 메소`
         : "-";
-    const potionUsageCountHpString = potionUsageCountHp && potionUsageCountHp >= 0
+    const potionUsageCountHpString = (potionUsageCountHp || potionUsageCountHp === 0) && potionUsageCountHp >= 0
         ? `${addCommaToNumber(potionUsageCountHp)}개`
         : "-";
-    const potionUsageCountMpString = potionUsageCountMp && potionUsageCountMp >= 0
+    const potionUsageCountMpString = (potionUsageCountMp || potionUsageCountMp === 0) && potionUsageCountMp >= 0
         ? `${addCommaToNumber(potionUsageCountMp)}개`
         : "-";
-    const potionUsagePriceHpString = hpPotionPrice && hpPotionPrice >= 0
+    const potionUsagePriceHpString = (hpPotionPrice || hpPotionPrice === 0) && (potionUsageCountHp || potionUsageCountHp === 0) && potionUsageCountHp >= 0
         ? `${addKoreanFormatToNumber(hpPotionPrice * potionUsageCountHp)} 메소`
         : "-";
-    const potionUsagePriceMpString = mpPotionPrice && mpPotionPrice >= 0
+    const potionUsagePriceMpString = (mpPotionPrice || mpPotionPrice === 0) && (potionUsageCountMp || potionUsageCountMp === 0) && potionUsageCountMp >= 0
         ? `${addKoreanFormatToNumber(mpPotionPrice * potionUsageCountMp)} 메소`
         : "-";
     const incomeStatementString = (incomeStatement || incomeStatement === 0) && mesoGainString !== "-"
