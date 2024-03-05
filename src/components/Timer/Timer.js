@@ -1,12 +1,14 @@
-import TimeDisplay from "./display/TimeDisplay";
 import "./Timer.css";
+import alarmUrl from '../../assets/sounds/bedside_clock_alarm.mp3';
 import { clearInterval, setInterval } from 'worker-timers';
 import { createContext, memo, useCallback, useEffect, useState } from "react";
 import { isValid } from "../../util";
+import TimeDisplay from "./display/TimeDisplay";
 import TimerModifier from "./controller/TimerModifier";
 import TimerPlayer from "./controller/TimerPlayer";
-import TimerAlarm from "./alarm/TimerAlarm";
+import TimerAlarmController from "./alarm/TimerAlarmController";
 import Spacer from "../public/Spacer";
+import useAudio from "../../hook/useAudio";
 
 export const TimerStateContext = createContext();
 
@@ -16,6 +18,10 @@ const Timer = ({ onFinishTimer }) => {
     const [initialTime, setInitialTime] = useState(0);
     const [time, setTime] = useState(0);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+    const [isAlarmEnabled, setIsAlarmEnabled] = useState(true);
+    const [isAlarmLoopEnabled, setIsAlarmLoopEnabled] = useState(false);
+    const [onClickPlayAudio, onClickStopAudio] = useAudio(alarmUrl)
 
     const onClickSetTime = useCallback((value) => {
         if (!isTimerRunning) {
@@ -62,6 +68,22 @@ const Timer = ({ onFinishTimer }) => {
         setIsTimerRunning(false);
     }, []);
 
+    const onClickEnabledCheckBox = useCallback(() => {
+        setIsAlarmEnabled((prevIsEnabled) => !prevIsEnabled);
+    })
+
+    const onClickLoopCheckBox = useCallback(() => {
+        setIsAlarmLoopEnabled((prevIsLoop) => !prevIsLoop);
+    })
+
+    const onClickAlarmStop = useCallback(() => {
+        setIsAlarmEnabled(false);
+    })
+
+    const onPlayAlarm = () => {
+        onClickPlayAudio();
+    }
+
     const timerPlayerProps = {
         onClickPlay: onClickPlay,
         onClickPause: onClickPause,
@@ -76,7 +98,7 @@ const Timer = ({ onFinishTimer }) => {
                     return prevTime - INTERVAL / INTERVAL
                 });
             }, INTERVAL);
-    
+
             if (time <= 0 && isTimerRunning) {
                 onFinishTimer(initialTime);
                 setInitialTime(0);
@@ -85,14 +107,14 @@ const Timer = ({ onFinishTimer }) => {
                     clearInterval(timer);
                 }
             }
-    
+
             // pause
             if (!isTimerRunning) {
                 return () => {
                     clearInterval(timer);
                 }
             }
-    
+
             return () => {
                 clearInterval(timer);
             }
@@ -108,7 +130,13 @@ const Timer = ({ onFinishTimer }) => {
                         <Spacer height={12} />
                         <TimerPlayer {...timerPlayerProps} />
                         <Spacer height={12} />
-                        <TimerAlarm />
+                        <TimerAlarmController
+                            isAlarmEnabled={isAlarmEnabled}
+                            isAlarmLoopEnabled={isAlarmLoopEnabled}
+                            onClickEnabledCheckBox={onClickEnabledCheckBox}
+                            onClickLoopCheckBox={onClickLoopCheckBox}
+                            onClickAlarmStop={onClickAlarmStop}
+                        />
                     </div>
                     <div className="right_section">
                         <TimerModifier onClickSetTime={onClickSetTime} />

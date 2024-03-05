@@ -1,0 +1,28 @@
+.TimerAlarmController {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.TimerAlarmController .content_section {
+    width: 100%;
+    max-width: 195px;
+    max-height: 41px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.TimerAlarmController .check_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.TimerAlarmController p {
+    font-weight: bold;
+}
