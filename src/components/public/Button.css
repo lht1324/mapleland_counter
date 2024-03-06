@@ -1,10 +1,12 @@
 .Button button {
-    min-width: 55px;
-    min-height: 55px;
+    min-width: 65px;
+    min-height: 65px;
     border-radius: 15px;
+    border: 2px solid black;
     background-color: white;
     font-family: "Nanum Gothic";
     font-weight: bold;
+    white-space: pre-wrap;
 }
 
 .Button button:hover {

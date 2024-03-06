@@ -28,41 +28,41 @@ export const secondToTimeString = (inputSecond) => {
     }
 }
 
-export const addFormatToMeso = (inputMeso) => {
+export const addKoreanFormatToNumber = (inputMeso) => {
     const absMeso = Math.abs(inputMeso);
     let result = "";
 
     if (Math.floor(absMeso / 10000) === 0) {
-        result = `${addCommaToNumber(absMeso)} 메소`;
+        result = `${addCommaToNumber(absMeso)}`;
     } else if (Math.floor(absMeso / 100000000) === 0) {
         if (Math.floor(absMeso % 10000) !== 0) {
             const tenThousand = addCommaToNumber(Math.floor(absMeso / 10000));
             const underTenThousand = addCommaToNumber(absMeso % 10000);
 
-            result = `${tenThousand}만 ${underTenThousand} 메소`;
+            result = `${tenThousand}만 ${underTenThousand}`;
         } else {
-            result = `${addCommaToNumber(Math.floor(absMeso / 10000))}만 메소`;
+            result = `${addCommaToNumber(Math.floor(absMeso / 10000))}만`;
         }
     } else { // 억 대
         if (Math.floor(absMeso % 100000000) === 0) {
-            result = `${addCommaToNumber(Math.floor(absMeso / 100000000))}억 메소`;
+            result = `${addCommaToNumber(Math.floor(absMeso / 100000000))}억`;
         } else {
             if (Math.floor(absMeso % 100000000 / 10000) !== 0 && Math.floor(absMeso % 100000000 % 10000) === 0) {
                 const oneHundredMillion = addCommaToNumber(Math.floor(absMeso / 100000000));
                 const tenThousand = addCommaToNumber(Math.floor(absMeso % 100000000 / 10000));
         
-                result = `${oneHundredMillion}억 ${tenThousand}만 메소`;
+                result = `${oneHundredMillion}억 ${tenThousand}만`;
             } else if (Math.floor(absMeso % 100000000 / 10000) === 0 && Math.floor(absMeso % 100000000 % 10000) !== 0) {
                 const oneHundredMillion = addCommaToNumber(Math.floor(absMeso / 100000000));
                 const underTenThousand = addCommaToNumber(absMeso % 10000);
         
-                result = `${oneHundredMillion}억 ${underTenThousand} 메소`;
+                result = `${oneHundredMillion}억 ${underTenThousand}`;
             } else {
                 const oneHundredMillion = addCommaToNumber(Math.floor(absMeso / 100000000));
                 const tenThousand = addCommaToNumber(Math.floor(absMeso % 100000000 / 10000));
                 const underTenThousand = addCommaToNumber(absMeso % 10000);
         
-                result = `${oneHundredMillion}억 ${tenThousand}만 ${underTenThousand} 메소`;
+                result = `${oneHundredMillion}억 ${tenThousand}만 ${underTenThousand}`;
             }
         }
     }
@@ -70,7 +70,7 @@ export const addFormatToMeso = (inputMeso) => {
     if (inputMeso >= 0) {
         return result;
     } else {
-        return `-${result}`
+        return `- ${result}`
     }
 }
 

@@ -1,4 +1,4 @@
-import { addCommaToNumber, addFormatToMeso, isValid, secondToTimeString } from "../../util";
+import { addCommaToNumber, addKoreanFormatToNumber, isValid, secondToTimeString } from "../../util";
 import TableItem from "../public/TableItem";
 import "./Result.css";
 
@@ -9,7 +9,13 @@ const Result = ({ time, userInfo }) => {
         oldExpRatio,
         newExpRatio,
         oldMeso,
-        newMeso
+        newMeso,
+        hpPotionPrice,
+        mpPotionPrice,
+        oldHpPotionCount,
+        oldMpPotionCount,
+        newHpPotionCount,
+        newMpPotionCount
     } = userInfo;
 
     /**
@@ -24,6 +30,10 @@ const Result = ({ time, userInfo }) => {
 
     const expGain = newExp - oldExp;
     const mesoGain = newMeso - oldMeso;
+    const potionUsageCountHp = oldHpPotionCount - newHpPotionCount;
+    const potionUsageCountMp = oldMpPotionCount - newMpPotionCount;
+    const usagePrice = hpPotionPrice * potionUsageCountHp + mpPotionPrice * potionUsageCountMp
+    const incomeStatement = (mesoGain ? mesoGain : 0) - (usagePrice ? usagePrice : 0);
 
     const expGainRatio = (newExpRatio - oldExpRatio).toFixed(2);
     const expectedTotalExp = newExp > oldExp && newExpRatio > oldExpRatio
@@ -42,7 +52,22 @@ const Result = ({ time, userInfo }) => {
         ? addCommaToNumber(expGain)
         : "-";
     const mesoGainString = mesoGain && mesoGain >= 0
-        ? addFormatToMeso(mesoGain)
+        ? `${addKoreanFormatToNumber(mesoGain)} 메소`
+        : "-";
+    const potionUsageCountHpString = (potionUsageCountHp || potionUsageCountHp === 0) && potionUsageCountHp >= 0
+        ? `${addCommaToNumber(potionUsageCountHp)}개`
+        : "-";
+    const potionUsageCountMpString = (potionUsageCountMp || potionUsageCountMp === 0) && potionUsageCountMp >= 0
+        ? `${addCommaToNumber(potionUsageCountMp)}개`
+        : "-";
+    const potionUsagePriceHpString = (hpPotionPrice || hpPotionPrice === 0) && (potionUsageCountHp || potionUsageCountHp === 0) && potionUsageCountHp >= 0
+        ? `${addKoreanFormatToNumber(hpPotionPrice * potionUsageCountHp)} 메소`
+        : "-";
+    const potionUsagePriceMpString = (mpPotionPrice || mpPotionPrice === 0) && (potionUsageCountMp || potionUsageCountMp === 0) && potionUsageCountMp >= 0
+        ? `${addKoreanFormatToNumber(mpPotionPrice * potionUsageCountMp)} 메소`
+        : "-";
+    const incomeStatementString = (incomeStatement || incomeStatement === 0) && mesoGainString !== "-"
+        ? `${incomeStatement > 0 ? "+ " : ""}${addKoreanFormatToNumber(incomeStatement)} 메소`
         : "-";
 
     // 추가 정보
@@ -102,6 +127,39 @@ const Result = ({ time, userInfo }) => {
                     <tr className="exp">
                         <TableItem type={"header"} text={"레벨업까지 남은 시간"} />
                         <TableItem type={"body"} text={remainingTimeToLevelUpString} />
+                    </tr>
+                    <tr className="default">
+                        <TableItem rowspan={'2'} type={"header"} text={"포션 소모량"}
+                            style={{
+                                backgroundColor: "#FF00FF",
+                                color: "#000000"
+                            }} />
+                        <TableItem
+                            type={"body"}
+                            text={`체력 포션 ${potionUsageCountHpString} (${potionUsagePriceHpString})`}
+                            style={{
+                                backgroundColor: "#FF0000",
+                                color: "#FFFFFF"
+                            }}
+                        />
+                    </tr>
+                    <tr className="default">
+                        <TableItem
+                            type={"body"}
+                            text={`마나 포션 ${potionUsageCountMpString} (${potionUsagePriceMpString})`}
+                            style={{
+                                backgroundColor: "#0000FF",
+                                color: "#FFFFFF"
+                            }}
+                        />
+                    </tr>
+                    <tr className="default">
+                        <TableItem type={"header"} text={"손익 계산"} />
+                        <TableItem
+                            type={"body"}
+                            text={incomeStatementString}
+                            style={{ color: ((incomeStatementString !== "-" && incomeStatement !== 0) ? (incomeStatement > 0 ? "#0000FF" : "#FF0000") : "#000000") }}
+                        />
                     </tr>
                 </tbody>
             </table>

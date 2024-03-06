@@ -1,0 +1,19 @@
+.InputSection {
+    min-width: 265px;
+    display: flex;
+    flex-direction: column;
+}
+
+.InputSection section {
+    max-width: 222px;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.InputSection legend {
+    font-weight: bold;
+}

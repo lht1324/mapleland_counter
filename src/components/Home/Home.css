@@ -1,5 +1,12 @@
 .Home {
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.Home .ad_section {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
 }
 
 .Home .top_section {
