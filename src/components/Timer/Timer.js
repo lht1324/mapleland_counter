@@ -21,7 +21,7 @@ const Timer = ({ onFinishTimer }) => {
 
     const [isAlarmEnabled, setIsAlarmEnabled] = useState(true);
     const [isAlarmLoopEnabled, setIsAlarmLoopEnabled] = useState(false);
-    const [onClickPlayAudio, onClickStopAudio] = useAudio(alarmUrl)
+    const [onClickPlayAudio, onClickStopAudio, onChangeLoop] = useAudio(alarmUrl)
 
     const onClickSetTime = useCallback((value) => {
         if (!isTimerRunning) {
@@ -68,17 +68,17 @@ const Timer = ({ onFinishTimer }) => {
         setIsTimerRunning(false);
     }, []);
 
-    const onClickEnabledCheckBox = useCallback(() => {
+    const onChangeEnabledCheckBox = useCallback(() => {
         setIsAlarmEnabled((prevIsEnabled) => !prevIsEnabled);
-    })
+    }, [])
 
-    const onClickLoopCheckBox = useCallback(() => {
+    const onChangeLoopCheckBox = useCallback(() => {
         setIsAlarmLoopEnabled((prevIsLoop) => !prevIsLoop);
-    })
+    }, [])
 
     const onClickAlarmStop = useCallback(() => {
-        setIsAlarmEnabled(false);
-    })
+        onClickStopAudio();
+    }, [])
 
     const onPlayAlarm = () => {
         onClickPlayAudio();
@@ -104,6 +104,7 @@ const Timer = ({ onFinishTimer }) => {
                 setInitialTime(0);
                 setIsTimerRunning(false);
                 return () => {
+                    onPlayAlarm();
                     clearInterval(timer);
                 }
             }
@@ -121,6 +122,10 @@ const Timer = ({ onFinishTimer }) => {
         }
     }, [time, initialTime, onFinishTimer, isTimerRunning]);
 
+    useEffect(() => {
+        onChangeLoop(isAlarmLoopEnabled);
+    }, [isAlarmLoopEnabled]);
+
     if (isValid(time)) {
         return (
             <TimerStateContext.Provider value={time} >
@@ -133,9 +138,9 @@ const Timer = ({ onFinishTimer }) => {
                         <TimerAlarmController
                             isAlarmEnabled={isAlarmEnabled}
                             isAlarmLoopEnabled={isAlarmLoopEnabled}
-                            onClickEnabledCheckBox={onClickEnabledCheckBox}
-                            onClickLoopCheckBox={onClickLoopCheckBox}
-                            onClickAlarmStop={onClickAlarmStop}
+                            onChangeEnabledCheckBox={onChangeEnabledCheckBox}
+                            onChangeLoopCheckBox={onChangeLoopCheckBox}
+                            onClickAlarmStop={onClickStopAudio}
                         />
                     </div>
                     <div className="right_section">

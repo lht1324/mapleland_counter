@@ -2,23 +2,19 @@ import { useState, useEffect } from "react";
 
 const useAudio = url => {
     const [audio] = useState(new Audio(url));
-    const [loopCount, setLoopCount] = useState(0);
-    // const [isPlaying, setIsPlaying] = useState(false);
 
     const onClickPlay = () => {
         audio.play();
-        setLoopCount(3);
     };
-
-    useEffect(() => {
-        audio.loop = loopCount !== 0;
-    }, [audio, loopCount]);
 
     const onClickStop = () => audio.pause();
 
+    const onChangeLoop = (isLoop) => {
+        audio.loop = isLoop;
+    }
+
     useEffect(() => {
         const onFinishAudio = () => {
-            setLoopCount((prevCount) => prevCount - 1);
             audio.pause()
         }
 
@@ -29,7 +25,7 @@ const useAudio = url => {
         };
     }, [audio]);
 
-    return [onClickPlay, onClickStop];
+    return [onClickPlay, onClickStop, onChangeLoop];
 };
 
 export default useAudio;

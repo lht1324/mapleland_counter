@@ -6,6 +6,7 @@
     background-color: white;
     font-family: "Nanum Gothic";
     font-weight: bold;
+    white-space: pre-wrap;
 }
 
 .Button button:hover {
