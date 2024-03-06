@@ -1,0 +1,9 @@
+.BuyMeACoffee {
+    min-width: 217px;
+    max-height: 50px;
+}
+
+.BuyMeACoffee a {
+    min-width: 217px;
+    min-height: 50px;
+}

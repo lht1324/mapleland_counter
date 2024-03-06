@@ -1,10 +1,12 @@
 .Home {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
-.Home .main_container {
-    justify-content: center;
+.Home .ad_section {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
 }
 
 .Home .top_section {
