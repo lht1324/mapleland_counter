@@ -7,7 +7,10 @@ const useAudio = url => {
         audio.play();
     };
 
-    const onClickStop = () => audio.pause();
+    const onClickStop = () => {
+        audio.pause();
+        audio.currentTime = 0;
+    };
 
     const onChangeLoop = (isLoop) => {
         audio.loop = isLoop;

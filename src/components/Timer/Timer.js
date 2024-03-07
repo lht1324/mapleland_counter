@@ -76,10 +76,6 @@ const Timer = ({ onFinishTimer }) => {
         setIsAlarmLoopEnabled((prevIsLoop) => !prevIsLoop);
     }, [])
 
-    const onClickAlarmStop = useCallback(() => {
-        onClickStopAudio();
-    }, [])
-
     const onPlayAlarm = () => {
         onClickPlayAudio();
     }
@@ -104,7 +100,9 @@ const Timer = ({ onFinishTimer }) => {
                 setInitialTime(0);
                 setIsTimerRunning(false);
                 return () => {
-                    onPlayAlarm();
+                    if (isAlarmEnabled) {
+                        onPlayAlarm();
+                    }
                     clearInterval(timer);
                 }
             }
@@ -120,7 +118,7 @@ const Timer = ({ onFinishTimer }) => {
                 clearInterval(timer);
             }
         }
-    }, [time, initialTime, onFinishTimer, isTimerRunning]);
+    }, [time, initialTime, onFinishTimer, isTimerRunning, isAlarmEnabled]);
 
     useEffect(() => {
         onChangeLoop(isAlarmLoopEnabled);
