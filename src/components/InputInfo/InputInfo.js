@@ -1,284 +1,265 @@
-import { useState } from "react";
+import { memo, useCallback, useContext } from "react";
 import "./InputInfo.css";
 import { addCommaToNumber, removeCommaFromNumber } from "../../util";
 import Spacer from "../public/Spacer";
 import InputSection from "./InputSection";
 import InputItem from "./InputItem";
+import { AppDispatchContext, AppStateContext } from "../../App";
 
-const InputInfo = ({ userInfo, onChangeUserInfo }) => {
-    const [isOldExpRatioEndsWithDot, setIsOldExpRatioEndsWithDot] = useState(false);
-    const [isNewExpRatioEndsWithDot, setIsNewExpRatioEndsWithDot] = useState(false);
+const InputInfo = () => {
+    const {
+        level,
+        oldExp,
+        newExp,
+        oldMeso,
+        newMeso,
+        hpPotionPrice,
+        mpPotionPrice,
+        oldHpPotionCount,
+        oldMpPotionCount,
+        newHpPotionCount,
+        newMpPotionCount
+    } = useContext(AppStateContext);
+    const onUpdate = useContext(AppDispatchContext);
 
-    const onChangeOldExp = (e) => {
+    const onChangeLevel = useCallback((e) => {
+        if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
+            const level = e.target.value.length !== 0 ? e.target.value : undefined;
+
+            if (((level >= 1 && level <= 200)) || typeof (level) === "undefined") {
+                onUpdate("level", level);
+            } else {
+                if ((level < 1 || level > 200)) {
+                    alert("1부터 200까지의 값만 입력할 수 있어요 :(")
+                }
+            }
+        }
+    }, [onUpdate]);
+    const onChangeOldExp = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const oldExp = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
-            onChangeUserInfo({
-                ...userInfo,
-                oldExp: oldExp
-            })
+            if ((oldExp <= 2147483647) || typeof (oldExp) === "undefined") {
+                onUpdate("oldExp", oldExp);
+            } else {
+                if (oldExp > 2147483647) {
+                    alert("2,147,483,647 이상의 값은 지원하지 않아요 :)")
+                }
+            }
         }
-    }
-    const onChangeNewExp = (e) => {
+    }, [onUpdate]);
+    const onChangeNewExp = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const newExp = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
-            onChangeUserInfo({
-                ...userInfo,
-                newExp: newExp
-            })
-        }
-    }
-    const onChangeOldExpRatio = (e) => {
-        const oldExpRatio = e.target.value.length !== 0
-            ? parseFloat(e.target.value)
-            : undefined;
-
-        if ((oldExpRatio >= 0.00 && oldExpRatio <= 100.00) || typeof (oldExpRatio) === "undefined") {
-            setIsOldExpRatioEndsWithDot(e.target.value.endsWith('.'));
-
-            onChangeUserInfo({
-                ...userInfo,
-                oldExpRatio: oldExpRatio
-            })
-        } else {
-            if (oldExpRatio < 0.00 || oldExpRatio > 100.00) {
-                alert("1부터 100 사이의 값만 입력할 수 있어요 :(")
+            if ((newExp <= 2147483647) || typeof (newExp) === "undefined") {
+                onUpdate("newExp", newExp);
             } else {
-                alert("숫자만 입력할 수 있어요 :(")
+                if (newExp > 2147483647) {
+                    alert("2,147,483,647 이상의 값은 지원하지 않아요 :)")
+                }
             }
         }
-    }
-    const onChangeNewExpRatio = (e) => {
-        const newExpRatio = e.target.value.length !== 0
-            ? parseFloat(e.target.value)
-            : undefined;
-
-        if ((newExpRatio >= 0.00 && newExpRatio <= 100.00) || typeof (newExpRatio) === "undefined") {
-            setIsNewExpRatioEndsWithDot(e.target.value.endsWith('.'));
-
-            onChangeUserInfo({
-                ...userInfo,
-                newExpRatio: newExpRatio
-            })
-        } else {
-            if (newExpRatio < 0.00 || newExpRatio > 100.00) {
-                alert("1부터 100 사이의 값만 입력할 수 있어요 :(")
-            } else {
-                alert("숫자만 입력할 수 있어요 :(")
-            }
-        }
-    }
-    const onChangeOldMeso = (e) => {
+    }, [onUpdate]);
+    const onChangeOldMeso = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const oldMeso = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
             if ((oldMeso <= 2147483647) || typeof (oldMeso) === "undefined") {
-                onChangeUserInfo({
-                    ...userInfo,
-                    oldMeso: oldMeso
-                })
+                onUpdate("oldMeso", oldMeso)
             } else {
-                alert("2,147,483,647 메소 이상은 지원하지 않아요 :(")
+                if (oldMeso > 2147483647) {
+                    alert("2,147,483,647 메소 이상은 지원하지 않아요 :)")
+                }
             }
         }
-    }
-    const onChangeNewMeso = (e) => {
+    }, [onUpdate]);
+    const onChangeNewMeso = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const newMeso = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
             if ((newMeso <= 2147483647) || typeof (newMeso) === "undefined") {
-                onChangeUserInfo({
-                    ...userInfo,
-                    newMeso: newMeso
-                })
+                onUpdate("newMeso", newMeso)
             } else {
-                alert("2,147,483,647 메소 이상은 지원하지 않아요 :)")
+                if (newMeso > 2147483647) {
+                    alert("2,147,483,647 메소 이상은 지원하지 않아요 :)")
+                }
             }
         }
-    }
-    const onChangeHpPotionPrice = (e) => {
+    }, [onUpdate]);
+    const onChangeHpPotionPrice = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const hpPotionPrice = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
-            onChangeUserInfo({
-                ...userInfo,
-                hpPotionPrice: hpPotionPrice
-            })
+            if ((hpPotionPrice <= 2147483647) || typeof (hpPotionPrice) === "undefined") {
+                onUpdate("hpPotionPrice", hpPotionPrice)
+            } else {
+                if (hpPotionPrice > 2147483647) {
+                    alert("2,147,483,647 메소 이상은 지원하지 않아요 :)")
+                }
+            }
         }
-    }
-    const onChangeMpPotionPrice = (e) => {
+    }, [onUpdate]);
+    const onChangeMpPotionPrice = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const mpPotionPrice = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
-            onChangeUserInfo({
-                ...userInfo,
-                mpPotionPrice: mpPotionPrice
-            })
+            if ((mpPotionPrice <= 2147483647) || typeof (mpPotionPrice) === "undefined") {
+                onUpdate("mpPotionPrice", mpPotionPrice)
+            } else {
+                if (mpPotionPrice > 2147483647) {
+                    alert("2,147,483,647 메소 이상은 지원하지 않아요 :)")
+                }
+            }
         }
-    }
-    const onChangeOldHpPotionCount = (e) => {
+    }, [onUpdate]);
+    const onChangeOldHpPotionCount = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const oldHpPotionCount = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
-            onChangeUserInfo({
-                ...userInfo,
-                oldHpPotionCount: oldHpPotionCount
-            })
+            onUpdate("oldHpPotionCount", oldHpPotionCount)
         }
-    }
-    const onChangeOldMpPotionCount = (e) => {
+    }, [onUpdate]);
+    const onChangeOldMpPotionCount = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const oldMpPotionCount = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
-            onChangeUserInfo({
-                ...userInfo,
-                oldMpPotionCount: oldMpPotionCount
-            })
+            onUpdate("oldMpPotionCount", oldMpPotionCount)
         }
-    }
-    const onChangeNewHpPotionCount = (e) => {
+    }, [onUpdate]);
+    const onChangeNewHpPotionCount = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const newHpPotionCount = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
-            onChangeUserInfo({
-                ...userInfo,
-                newHpPotionCount: newHpPotionCount
-            })
+            onUpdate("newHpPotionCount", newHpPotionCount)
         }
-    }
-    const onChangeNewMpPotionCount = (e) => {
+    }, [onUpdate]);
+    const onChangeNewMpPotionCount = useCallback((e) => {
         if (!e.target.value.includes('.') && !e.target.value.includes('-')) {
             const newMpPotionCount = e.target.value.length !== 0
                 ? removeCommaFromNumber(e.target.value)
                 : undefined;
 
-            onChangeUserInfo({
-                ...userInfo,
-                newMpPotionCount: newMpPotionCount
-            })
+            onUpdate("newMpPotionCount", newMpPotionCount)
         }
-    }
-    // 가격 | 전후 포션 개수
+    }, [onUpdate]);
 
     return (<div className="InputInfo">
         <div className="input_section_container">
-            <InputSection title={"사냥 전 정보"}>
+            <InputSection title={"사냥 전"}>
                 <InputItem
+                    type={"exp"}
                     placeholder={"경험치"}
-                    value={userInfo.oldExp ? addCommaToNumber(userInfo.oldExp) : userInfo.oldExp}
+                    value={oldExp ? addCommaToNumber(oldExp) : oldExp}
                     onChange={onChangeOldExp}
                     suffix={"EXP"}
                 />
                 <InputItem
-                    placeholder={"경험치 %"}
-                    value={userInfo.oldExpRatio ? (isOldExpRatioEndsWithDot ? `${userInfo.oldExpRatio}.` : `${userInfo.oldExpRatio}`) : ""}
-                    onChange={onChangeOldExpRatio}
-                    suffix={"%"}
-                    maxLength={5}
-                />
-                <InputItem
+                    type={"meso"}
                     placeholder={"메소"}
-                    value={userInfo.oldMeso ? addCommaToNumber(userInfo.oldMeso) : userInfo.oldMeso}
+                    value={oldMeso ? addCommaToNumber(oldMeso) : oldMeso}
                     onChange={onChangeOldMeso}
                     suffix={"메소"}
                     maxLength={13}
                 />
-            </InputSection>
-            <Spacer width={12} />
-            <InputSection title={"사냥 후 정보"}>
+                <legend>사냥 후</legend>
                 <InputItem
+                    type={"exp"}
                     placeholder={"경험치"}
-                    value={userInfo.newExp ? addCommaToNumber(userInfo.newExp) : userInfo.newExp}
+                    value={newExp ? addCommaToNumber(newExp) : newExp}
                     onChange={onChangeNewExp}
                     suffix={"EXP"}
                 />
                 <InputItem
-                    placeholder={"경험치 %"}
-                    value={userInfo.newExpRatio ? (isNewExpRatioEndsWithDot ? `${userInfo.newExpRatio}.` : `${userInfo.newExpRatio}`) : ""}
-                    onChange={onChangeNewExpRatio}
-                    suffix={"%"}
-                    maxLength={5}
-                />
-                <InputItem
+                    type={"meso"}
                     placeholder={"메소"}
-                    value={userInfo.newMeso ? addCommaToNumber(userInfo.newMeso) : userInfo.newMeso}
+                    value={newMeso ? addCommaToNumber(newMeso) : newMeso}
                     onChange={onChangeNewMeso}
                     suffix={"메소"}
                     maxLength={13}
                 />
             </InputSection>
-        </div>
-        <Spacer height={12} />
-        <div className="input_section_container">
-            <InputSection title={"포션 가격"}>
-                <InputItem
-                    placeholder={"개당 가격"}
-                    value={userInfo.hpPotionPrice ? addCommaToNumber(userInfo.hpPotionPrice) : userInfo.hpPotionPrice}
-                    onChange={onChangeHpPotionPrice}
-                    suffix={"메소"}
-                    style={{ border: "2px solid #FF0000"}}
-                />
-                <InputItem
-                    placeholder={"개당 가격"}
-                    value={userInfo.mpPotionPrice ? addCommaToNumber(userInfo.mpPotionPrice) : userInfo.mpPotionPrice}
-                    onChange={onChangeMpPotionPrice}
-                    suffix={"메소"}
-                    style={{ border: "2px solid #0000FF"}}
-                />
-            </InputSection>
             <Spacer width={12} />
             <InputSection title={"사냥 전"}>
                 <InputItem
+                    type={"hp"}
                     placeholder={"개수"}
-                    value={userInfo.oldHpPotionCount ? addCommaToNumber(userInfo.oldHpPotionCount) : userInfo.oldHpPotionCount}
+                    value={oldHpPotionCount ? addCommaToNumber(oldHpPotionCount) : oldHpPotionCount}
                     onChange={onChangeOldHpPotionCount}
                     suffix={"개"}
-                    style={{ border: "2px solid #FF0000"}}
                 />
                 <InputItem
+                    type={"mp"}
                     placeholder={"개수"}
-                    value={userInfo.oldMpPotionCount ? addCommaToNumber(userInfo.oldMpPotionCount) : userInfo.oldMpPotionCount}
+                    value={oldMpPotionCount ? addCommaToNumber(oldMpPotionCount) : oldMpPotionCount}
                     onChange={onChangeOldMpPotionCount}
                     suffix={"개"}
-                    style={{ border: "2px solid #0000FF"}}
                 />
                 <legend>사냥 후</legend>
                 <InputItem
+                    type={"hp"}
                     placeholder={"개수"}
-                    value={userInfo.newHpPotionCount ? addCommaToNumber(userInfo.newHpPotionCount) : userInfo.newHpPotionCount}
+                    value={newHpPotionCount ? addCommaToNumber(newHpPotionCount) : newHpPotionCount}
                     onChange={onChangeNewHpPotionCount}
                     suffix={"개"}
-                    style={{ border: "2px solid #FF0000"}}
                 />
                 <InputItem
+                    type={"mp"}
                     placeholder={"개수"}
-                    value={userInfo.newMpPotionCount ? addCommaToNumber(userInfo.newMpPotionCount) : userInfo.newMpPotionCount}
+                    value={newMpPotionCount ? addCommaToNumber(newMpPotionCount) : newMpPotionCount}
                     onChange={onChangeNewMpPotionCount}
                     suffix={"개"}
-                    style={{ border: "2px solid #0000FF"}}
+                />
+            </InputSection>
+        </div>
+        <Spacer height={12} />
+        <div className="input_section_container">
+            <InputSection title={"레벨"}>
+                <InputItem
+                    type={"exp"}
+                    placeholder={"레벨"}
+                    value={level}
+                    onChange={onChangeLevel}
+                    suffix={"Lv."}
+                />
+            </InputSection>
+            <Spacer width={12} />
+            <InputSection title={"포션 가격"}>
+                <InputItem
+                    type={"hp"}
+                    placeholder={"개당 가격"}
+                    value={hpPotionPrice ? addCommaToNumber(hpPotionPrice) : hpPotionPrice}
+                    onChange={onChangeHpPotionPrice}
+                    suffix={"메소"}
+                />
+                <InputItem
+                    type={"mp"}
+                    placeholder={"개당 가격"}
+                    value={mpPotionPrice ? addCommaToNumber(mpPotionPrice) : mpPotionPrice}
+                    onChange={onChangeMpPotionPrice}
+                    suffix={"메소"}
                 />
             </InputSection>
         </div>
     </div>)
 }
 
-export default InputInfo;
+export default memo(InputInfo);

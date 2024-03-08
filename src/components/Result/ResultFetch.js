@@ -1,11 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
-import { SupabaseConfig } from './config/SupabaseConfig';
+import { SupabaseConfig } from '../../config/SupabaseConfig';
 
 export async function getExpList() {
+    
     const supabaseUrl = SupabaseConfig.projectUrl
     const supabaseKey = SupabaseConfig.apiKey
     const supabase = createClient(supabaseUrl, supabaseKey);
-    
+
     try {
         const { data, error } = await supabase
             .from('exp_table')
