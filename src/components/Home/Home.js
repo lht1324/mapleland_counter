@@ -11,6 +11,7 @@ import useScreenSize from "../../hook/useScreenSize";
 
 const Home = () => {
     const [screenWidth, screenHeight] = useScreenSize();
+    const [isMobile, setIsMobile] = useState(screenHeight < 1024);
     const [kakaoAd, setKakaoAd] = useState();
 
     // 시간 0이고 5분 후 경험치 메소 !isNan일 때 Result 출력
@@ -41,12 +42,22 @@ const Home = () => {
     }
 
     useEffect(() => {
-        if (screenWidth < 1024) {
-            setKakaoAd(<KakaoAd key={"DAN-I5lLkTnmGwuOqRDk"} width={320} height={50} />)
+        setIsMobile(screenWidth < 1024);
+    }, [screenWidth]);
+
+    useEffect(() => {
+        setKakaoAd(<div></div>)
+        if (isMobile) {
+            setKakaoAd(<KakaoAd key={"DAN-I5lLkTnmGwuOqRDk"} adKey={"DAN-I5lLkTnmGwuOqRDk"} width={320} height={50} />)
         } else {
-            setKakaoAd(<KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />)
+            setKakaoAd(<KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />)
         }
-    }, [screenWidth])
+    }, [isMobile]);
+
+    useEffect(() => {
+        console.log(`kakao is changed`)
+        
+    }, [kakaoAd]);
 
     return (
         <div className="Home">

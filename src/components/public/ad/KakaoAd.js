@@ -1,16 +1,27 @@
 import "./KakaoAd.css"
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
 
-const KakaoAd = ({ key, width, height }) => {
-    return (<div className="KakaoAd">
+const KakaoAd = ({ adKey, width, height }) => {
+    const scriptElement = useRef(null);
+
+    useEffect(() => {
+        const script = document.createElement("script");
+
+        script.setAttribute("src", "https://t1.daumcdn.net/kas/static/ba.min.js");
+        script.setAttribute("charset", "utf-8");
+        script.setAttribute("async", "true");
+
+        scriptElement.current?.appendChild(script);
+    }, [adKey]);
+
+    return (<div ref={scriptElement} className="KakaoAd">
         <ins
-            class="kakao_ad_area"
+            className="kakao_ad_area"
             style={{ display: "none", width: "100%" }}
-            data-ad-unit={key}
+            data-ad-unit={adKey}
             data-ad-width={width}
             data-ad-height={height}
         />
-        <script async type="text/javascript" charset="utf-8" src="https://t1.daumcdn.net/kas/static/ba.min.js" />
     </div>)
 }
 

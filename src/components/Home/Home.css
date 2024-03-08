@@ -6,7 +6,7 @@
 .Home .ad_section {
     display: flex;
     flex-direction: row;
-    justify-content: right;
+    justify-content: space-between;
 }
 
 .Home .top_section {

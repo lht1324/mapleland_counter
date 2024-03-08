@@ -1,5 +1,4 @@
 import "./Timer.css";
-import alarmUrl from '../../assets/sounds/bedside_clock_alarm.mp3';
 import { clearInterval, setInterval } from 'worker-timers';
 import { createContext, memo, useCallback, useEffect, useState } from "react";
 import { isValid } from "../../util";
@@ -8,7 +7,6 @@ import TimerModifier from "./controller/TimerModifier";
 import TimerPlayer from "./controller/TimerPlayer";
 import TimerAlarmController from "./alarm/TimerAlarmController";
 import Spacer from "../public/Spacer";
-import useAudio from "../../hook/useAudio";
 
 export const TimerStateContext = createContext();
 
@@ -18,10 +16,8 @@ const Timer = ({ onFinishTimer }) => {
     const [initialTime, setInitialTime] = useState(0);
     const [time, setTime] = useState(0);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
-
-    const [isAlarmEnabled, setIsAlarmEnabled] = useState(true);
-    const [isAlarmLoopEnabled, setIsAlarmLoopEnabled] = useState(false);
-    const [onClickPlayAudio, onClickStopAudio, onChangeLoop] = useAudio(alarmUrl)
+    
+    const [isAlarmPlaying, setIsAlarmPlaying] = useState(false);
 
     const onClickSetTime = useCallback((value) => {
         if (!isTimerRunning) {
@@ -68,21 +64,9 @@ const Timer = ({ onFinishTimer }) => {
         setIsTimerRunning(false);
     }, []);
 
-    const onChangeEnabledCheckBox = useCallback(() => {
-        setIsAlarmEnabled((prevIsEnabled) => !prevIsEnabled);
-    }, [])
-
-    const onChangeLoopCheckBox = useCallback(() => {
-        setIsAlarmLoopEnabled((prevIsLoop) => !prevIsLoop);
-    }, [])
-
-    const onClickAlarmStop = useCallback(() => {
-        onClickStopAudio();
-    }, [])
-
-    const onPlayAlarm = () => {
-        onClickPlayAudio();
-    }
+    const onClickStopAlarm = useCallback(() => {
+        setIsAlarmPlaying(false);
+    }, []);
 
     const timerPlayerProps = {
         onClickPlay: onClickPlay,
@@ -104,7 +88,7 @@ const Timer = ({ onFinishTimer }) => {
                 setInitialTime(0);
                 setIsTimerRunning(false);
                 return () => {
-                    onPlayAlarm();
+                    setIsAlarmPlaying(true);
                     clearInterval(timer);
                 }
             }
@@ -120,11 +104,7 @@ const Timer = ({ onFinishTimer }) => {
                 clearInterval(timer);
             }
         }
-    }, [time, initialTime, onFinishTimer, isTimerRunning]);
-
-    useEffect(() => {
-        onChangeLoop(isAlarmLoopEnabled);
-    }, [isAlarmLoopEnabled]);
+    }, [time, initialTime, isTimerRunning, onFinishTimer]);
 
     if (isValid(time)) {
         return (
@@ -136,11 +116,8 @@ const Timer = ({ onFinishTimer }) => {
                         <TimerPlayer {...timerPlayerProps} />
                         <Spacer height={12} />
                         <TimerAlarmController
-                            isAlarmEnabled={isAlarmEnabled}
-                            isAlarmLoopEnabled={isAlarmLoopEnabled}
-                            onChangeEnabledCheckBox={onChangeEnabledCheckBox}
-                            onChangeLoopCheckBox={onChangeLoopCheckBox}
-                            onClickAlarmStop={onClickStopAudio}
+                            isAlarmPlaying={isAlarmPlaying}
+                            onClickStopAlarm={onClickStopAlarm}
                         />
                     </div>
                     <div className="right_section">

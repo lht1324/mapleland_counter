@@ -9,8 +9,8 @@ const useAudio = url => {
 
     const onClickStop = () => audio.pause();
 
-    const onChangeLoop = (isLoop) => {
-        audio.loop = isLoop;
+    const onChangeLoop = () => {
+        audio.loop = !audio.loop;
     }
 
     useEffect(() => {
