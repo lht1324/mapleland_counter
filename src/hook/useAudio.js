@@ -12,8 +12,8 @@ const useAudio = url => {
         audio.currentTime = 0;
     };
 
-    const onChangeLoop = (isLoop) => {
-        audio.loop = isLoop;
+    const onChangeLoop = () => {
+        audio.loop = !audio.loop;
     }
 
     useEffect(() => {

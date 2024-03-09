@@ -8,7 +8,11 @@ const TableItem = ({ rowspan, type, text, style }) => {
             return <th style={style}>{text}</th>
         }
     } else {
-        return <td style={style}>{text}</td>
+        if (rowspan !== '0') {
+            return <td rowSpan={rowspan} style={style}>{text}</td>
+        } else {
+            return <td style={style}>{text}</td>
+        }
     }
 }
 
