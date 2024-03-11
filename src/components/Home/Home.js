@@ -40,7 +40,7 @@ const Home = ({
     useEffect(() => {
         setKakaoAd(<div></div>)
         if (isMobile) {
-            setKakaoAd(<KakaoAd key={"DAN-I5lLkTnmGwuOqRDk"} adKey={"DAN-I5lLkTnmGwuOqRDk"} width={320} height={50} />)
+            setKakaoAd(<KakaoAd key={"DAN-I5lLkTnmGwuOqRDk"} adKey={"DAN-I5lLkTnmGwuOqRDk"} width={250} height={250} />)
         } else {
             setKakaoAd(<KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />)
         }
@@ -50,10 +50,10 @@ const Home = ({
         <div className="Home">
             <div className="ad_section">
                 {kakaoAd}
-                <Spacer width={10} />
+                {isMobile ? <Spacer height={12} /> : <Spacer width={12} />}
                 <BuyMeACoffee />
             </div>
-            <Spacer height={30} />
+            {isMobile ? <Spacer height={12} /> : <Spacer height={30} />}
             <div className="top_section">
                 <Timer onFinishTimer={onFinishTimer} />
                 <Spacer width={12} />

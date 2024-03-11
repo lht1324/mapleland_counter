@@ -21,7 +21,11 @@
 
 /* 1024*768 미만은 줄어든 화면이 보여진다 */
 @media screen and (max-width: 1023px) {
-    .Home .top_section {
+    .Home .top_section, .Home .ad_section {
         flex-direction: column;
+    }
+
+    .Home .ad_section {
+        align-items: center;
     }
 }
