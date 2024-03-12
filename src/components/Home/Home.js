@@ -32,9 +32,10 @@ const Home = ({
     return (
         <div className="Home">
             <div className="ad_section">
-                {isMobile
+                {/* {isMobile
                 ? <KakaoAd key={"DAN-I5lLkTnmGwuOqRDk"} adKey={"DAN-I5lLkTnmGwuOqRDk"} width={320} height={50} />
-                : <KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />}
+                : <KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />} */}
+                <KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />
                 {isMobile ? <Spacer height={12} /> : <Spacer width={12} />}
                 <BuyMeACoffee />
             </div>
