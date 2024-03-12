@@ -9,6 +9,10 @@
     justify-content: space-between;
 }
 
+.Home .KakaoAd {
+    max-width: 100%
+}
+
 .Home .top_section {
     display: flex;
     flex-direction: row;
@@ -23,9 +27,6 @@
 @media screen and (max-width: 1023px) {
     .Home .top_section, .Home .ad_section {
         flex-direction: column;
-    }
-
-    .Home .ad_section {
         align-items: center;
     }
 }
