@@ -2,12 +2,12 @@ import "./Home.css";
 import Timer from "../Timer/Timer";
 import InputInfo from "../InputInfo/InputInfo";
 import Result from "../Result/Result";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import KakaoAd from "../public/ad/KakaoAd";
 import Spacer from "../public/Spacer";
 import BuyMeACoffee from "../public/ad/BuyMeACoffee";
-import useScreenSize from "../../hook/useScreenSize";
+import { isMobile } from "react-device-detect";
 
 const Home = ({
     level,
@@ -22,38 +22,24 @@ const Home = ({
     newHpPotionCount,
     newMpPotionCount
 }) => {
-    const [screenWidth, screenHeight] = useScreenSize();
-    const [isMobile, setIsMobile] = useState(screenHeight < 1024);
-    const [kakaoAd, setKakaoAd] = useState();
-
-    // second
+    // seconds
     const [resultTime, setResultTime] = useState(0);
 
     const onFinishTimer = useCallback((timerTime) => {
         setResultTime(timerTime);
     }, []);
 
-    useEffect(() => {
-        setIsMobile(screenWidth < 1024);
-    }, [screenWidth]);
-
-    useEffect(() => {
-        setKakaoAd(<div></div>)
-        if (isMobile) {
-            setKakaoAd(<KakaoAd key={"DAN-I5lLkTnmGwuOqRDk"} adKey={"DAN-I5lLkTnmGwuOqRDk"} width={320} height={50} />)
-        } else {
-            setKakaoAd(<KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />)
-        }
-    }, [isMobile]);
-
     return (
         <div className="Home">
             <div className="ad_section">
-                {kakaoAd}
-                <Spacer width={10} />
+                {/* {isMobile
+                ? <KakaoAd key={"DAN-I5lLkTnmGwuOqRDk"} adKey={"DAN-I5lLkTnmGwuOqRDk"} width={320} height={50} />
+                : <KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />} */}
+                <KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />
+                {isMobile ? <Spacer height={12} /> : <Spacer width={12} />}
                 <BuyMeACoffee />
             </div>
-            <Spacer height={30} />
+            {isMobile ? <Spacer height={12} /> : <Spacer height={30} />}
             <div className="top_section">
                 <Timer onFinishTimer={onFinishTimer} />
                 <Spacer width={12} />
