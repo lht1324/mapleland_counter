@@ -1,19 +1,5 @@
 .Timer {
-    height: fit-content;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: top;
-}
-.Timer .left_section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.Timer .right_section {
     width: fit-content;
     height: fit-content;
-    margin-left: 12px;
+    display: flex;
 }

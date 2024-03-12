@@ -1,10 +1,11 @@
 import { useAsync } from "react-async";
 import { addCommaToNumber, addKoreanFormatToNumber, isValid, secondToTimeString } from "../../util";
-import TableItem from "../public/TableItem";
+import TableItem from "./TableItem";
 import "./Result.css";
 import { getExpList } from "./ResultFetch";
 import { useContext } from "react";
 import { AppStateContext } from "../../App";
+import TableRow from "./TableRow";
 
 const Result = ({ time }) => {
     const {
@@ -132,25 +133,25 @@ const Result = ({ time }) => {
                 return tableRowList;
             } else {
                 tableRowList.push(
-                    <tr className="exp">
+                    <TableRow className={"exp"}>
                         <TableItem type={"header"} text={"경험치 획득 비율"} />
                         <TableItem rowspan={4} type={"body"} text={"만렙 달성 축하드립니다 :)"} />
-                    </tr>
+                    </TableRow>
                 )
                 tableRowList.push(
-                    < tr className="exp" >
+                    <TableRow className={"exp"}>
                         <TableItem type={"header"} text={"전체 경험치"} />
-                    </tr >
+                    </TableRow>
                 )
                 tableRowList.push(
-                    < tr className="exp" >
+                    <TableRow className={"exp"}>
                         <TableItem type={"header"} text={"레벨업에 필요한 경험치"} />
-                    </tr >
+                    </TableRow>
                 )
                 tableRowList.push(
-                    <tr className="exp">
+                    <TableRow className={"exp"}>
                         <TableItem type={"header"} text={"레벨업까지 남은 시간"} />
-                    </tr>
+                    </TableRow>
                 )
                 return tableRowList;
             }
@@ -166,21 +167,21 @@ const Result = ({ time }) => {
                 <h2>기본 정보</h2>
                 <table>
                     <tbody>
-                        <tr className="exp">
+                        <TableRow className={"exp"}>
                             <TableItem type={"header"} text={"경험치 획득량"} />
                             <TableItem type={"body"} text={expGainString} />
-                        </tr>
-                        <tr className="meso">
+                        </TableRow>
+                        <TableRow className={"meso"}>
                             <TableItem type={"header"} text={"메소 획득량"} />
                             <TableItem type={"body"} text={mesoGainString} />
-                        </tr>
+                        </TableRow>
                     </tbody>
                 </table>
                 <h2>추가 정보</h2>
                 <table>
                     <tbody>
                         {getAdditionalExpInfoTableRows(level)}
-                        <tr className="default">
+                        <TableRow className={"default"}>
                             <TableItem rowspan={'2'} type={"header"} text={"포션 소모량"}
                                 style={{
                                     backgroundColor: "#FF00FF",
@@ -194,8 +195,8 @@ const Result = ({ time }) => {
                                     color: "#FFFFFF"
                                 }}
                             />
-                        </tr>
-                        <tr className="default">
+                        </TableRow>
+                        <TableRow className={"default"}>
                             <TableItem
                                 type={"body"}
                                 text={`마나 포션 ${potionUsageCountMpString} (${potionUsagePriceMpString})`}
@@ -204,15 +205,15 @@ const Result = ({ time }) => {
                                     color: "#FFFFFF"
                                 }}
                             />
-                        </tr>
-                        <tr className="default">
+                        </TableRow>
+                        <TableRow className={"default"}>
                             <TableItem type={"header"} text={"손익 계산"} />
                             <TableItem
                                 type={"body"}
                                 text={incomeStatementString}
                                 style={{ color: ((incomeStatementString !== "-" && incomeStatement !== 0) ? (incomeStatement > 0 ? "#0000FF" : "#FF0000") : "#000000") }}
                             />
-                        </tr>
+                        </TableRow>
                     </tbody>
                 </table>
             </div>
