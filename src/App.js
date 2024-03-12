@@ -1,9 +1,11 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import Home from "./components/Home/Home"
+import HomePC from "./components/Page/PC/Home/Home"
+import HomeMobile from "./components/Page/Mobile/Home/Home"
 import { createContext, useCallback, useReducer } from 'react';
 import AppStateProvider from './context/AppStateProvider';
 import AppDispatchProvider from './context/AppDispatchProvider';
+import { isMobile } from 'react-device-detect';
 
 export const AppStateContext = createContext();
 export const AppDispatchContext = createContext();
@@ -65,7 +67,11 @@ function App() {
             }}>
                 <div className="App">
                     <Routes>
-                        <Route path="/" element={<Home userInfo={userInfo} />} />
+                    {
+                        !isMobile
+                        ? <Route path="/" element={<HomePC userInfo={userInfo} />} />
+                        : <Route path="/" element={<HomeMobile userInfo={userInfo} />} />
+                    }
                     </Routes>
                 </div>
             </AppStateProvider>
