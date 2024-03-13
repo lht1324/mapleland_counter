@@ -5,6 +5,7 @@ import Spacer from "../public/Spacer";
 import InputSection from "./InputSection";
 import InputItem from "./InputItem";
 import { AppDispatchContext, AppStateContext } from "../../App";
+import { isMobile } from "react-device-detect";
 
 const InputInfo = () => {
     const {
@@ -163,7 +164,7 @@ const InputInfo = () => {
     }, [onUpdate]);
 
     return (<div className="InputInfo">
-        <div className="input_section_container">
+        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row" }}>
             <InputSection title={"사냥 전"}>
                 <InputItem
                     type={"exp"}
@@ -197,7 +198,7 @@ const InputInfo = () => {
                     maxLength={13}
                 />
             </InputSection>
-            <Spacer width={12} />
+            {isMobile ? <Spacer height={12} /> : <Spacer width={12} />}
             <InputSection title={"사냥 전"}>
                 <InputItem
                     type={"hp"}
@@ -231,7 +232,7 @@ const InputInfo = () => {
             </InputSection>
         </div>
         <Spacer height={12} />
-        <div className="input_section_container">
+        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row" }}>
             <InputSection title={"레벨"}>
                 <InputItem
                     type={"exp"}
@@ -241,7 +242,7 @@ const InputInfo = () => {
                     suffix={"Lv."}
                 />
             </InputSection>
-            <Spacer width={12} />
+            {isMobile ? <Spacer height={12} /> : <Spacer width={12} />}
             <InputSection title={"포션 가격"}>
                 <InputItem
                     type={"hp"}

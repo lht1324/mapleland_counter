@@ -1,12 +1,82 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
-
 .App {
     padding: 20px;
-    min-width: 50vw;
+    min-width: 70vw;
     text-align: center;
-    font-family: "Nanum Gothic";
+    font-family: "Nanum Gothic, Pretendard";
     background-color: #b8e7f7;
     background: rgb(230,183,253);
     background: linear-gradient(180deg, rgba(230,183,253,1) 0%, rgba(207,207,250,1) 50%, rgba(181,233,245,1) 100%);
     justify-content: center;
+}
+
+@font-face {
+    font-family: Nanum Gothic;
+    font-weight: 400;
+    src: url("assets/fonts/NanumGothic/NanumGothic_Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: Nanum Gothic;
+    font-weight: 700;
+    src: url("assets/fonts/NanumGothic/NanumGothic_Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: Nanum Gothic;
+    font-weight: 800;
+    src: url("assets/fonts/NanumGothic/NanumGothic_ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: Pretendard;
+    font-weight: 100;
+    src: url("assets/fonts/Pretendard/Pretendard_Thin.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Pretendard;
+    font-weight: 200;
+    src: url("assets/fonts/Pretendard/Pretendard_ExtraLight.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Pretendard;
+    font-weight: 300;
+    src: url("assets/fonts/Pretendard/Pretendard_Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Pretendard;
+    font-weight: 400;
+    src: url("assets/fonts/Pretendard/Pretendard_Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Pretendard;
+    font-weight: 500;
+    src: url("assets/fonts/Pretendard/Pretendard_Medium.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Pretendard;
+    font-weight: 600;
+    src: url("assets/fonts/Pretendard/Pretendard_SemiBold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Pretendard;
+    font-weight: 700;
+    src: url("assets/fonts/Pretendard/Pretendard_Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Pretendard;
+    font-weight: 800;
+    src: url("assets/fonts/Pretendard/Pretendard_ExtraBold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Pretendard;
+    font-weight: 900;
+    src: url("assets/fonts/Pretendard/Pretendard_Black.otf") format("opentype");
 }

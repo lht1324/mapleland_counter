@@ -7,6 +7,7 @@ import TimerModifier from "./controller/TimerModifier";
 import TimerPlayer from "./controller/TimerPlayer";
 import TimerAlarmController from "./alarm/TimerAlarmController";
 import Spacer from "../public/Spacer";
+import { isMobile } from "react-device-detect";
 
 export const TimerStateContext = createContext();
 
@@ -16,7 +17,7 @@ const Timer = ({ onFinishTimer }) => {
     const [initialTime, setInitialTime] = useState(0);
     const [time, setTime] = useState(0);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
-    
+
     const [isAlarmPlaying, setIsAlarmPlaying] = useState(false);
 
     const onClickSetTime = useCallback((value) => {
@@ -109,8 +110,8 @@ const Timer = ({ onFinishTimer }) => {
     if (isValid(time)) {
         return (
             <TimerStateContext.Provider value={time} >
-                <div className="Timer">
-                    <div className="left_section">
+                <div className="Timer" style={{ flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "center" : "start" }}>
+                    <div style={{ flexDirection: isMobile ? "column" : "row" }}>
                         <TimeDisplay />
                         <Spacer height={12} />
                         <TimerPlayer {...timerPlayerProps} />
@@ -120,9 +121,8 @@ const Timer = ({ onFinishTimer }) => {
                             onClickStopAlarm={onClickStopAlarm}
                         />
                     </div>
-                    <div className="right_section">
-                        <TimerModifier onClickSetTime={onClickSetTime} />
-                    </div>
+                    {isMobile ? <Spacer height={12} /> : <Spacer width={12} />}
+                    <TimerModifier onClickSetTime={onClickSetTime} />
                 </div>
             </TimerStateContext.Provider>
         )

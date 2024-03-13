@@ -4,8 +4,9 @@
 }
 
 .Home .ad_section {
+    max-width: 100%;
     display: flex;
-    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -15,18 +16,9 @@
 
 .Home .top_section {
     display: flex;
-    flex-direction: row;
 }
 
 .Home .bottom_section {
     display: flex;
     flex-direction: row;
-}
-
-/* 1024*768 미만은 줄어든 화면이 보여진다 */
-@media screen and (max-width: 1023px) {
-    .Home .top_section, .Home .ad_section {
-        flex-direction: column;
-        align-items: center;
-    }
 }

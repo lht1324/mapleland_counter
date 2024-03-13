@@ -1,4 +1,6 @@
 .InputInfo {
+    width: fit-content;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 }
@@ -9,8 +11,8 @@
 }
 
 /* 1024*768 미만은 줄어든 화면이 보여진다 */
-@media screen and (max-width: 1023px) {
+/* @media screen and (max-width: 1023px) {
     .InputInfo {
         margin-top: 12px;
     }
-}
+} */

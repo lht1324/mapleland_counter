@@ -1,4 +1,4 @@
-import "./Home.css";
+import "./Home.css"
 import Timer from "../Timer/Timer";
 import InputInfo from "../InputInfo/InputInfo";
 import Result from "../Result/Result";
@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import KakaoAd from "../public/ad/KakaoAd";
 import Spacer from "../public/Spacer";
 import BuyMeACoffee from "../public/ad/BuyMeACoffee";
-import { isMobile } from "react-device-detect";
+import { BrowserView, MobileView, isMobile } from "react-device-detect";
 
 const Home = ({
     level,
@@ -31,18 +31,23 @@ const Home = ({
 
     return (
         <div className="Home">
-            <div className="ad_section">
-                {/* {isMobile
-                ? <KakaoAd key={"DAN-I5lLkTnmGwuOqRDk"} adKey={"DAN-I5lLkTnmGwuOqRDk"} width={320} height={50} />
-                : <KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />} */}
-                <KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />
-                {isMobile ? <Spacer height={12} /> : <Spacer width={12} />}
-                <BuyMeACoffee />
-            </div>
-            {isMobile ? <Spacer height={12} /> : <Spacer height={30} />}
-            <div className="top_section">
+            <BrowserView>
+                <div className="ad_section" style={{ flexDirection: "row" }}>
+                    <KakaoAd key={"DAN-AuzAwzP0dJgMIPG0"} adKey={"DAN-AuzAwzP0dJgMIPG0"} width={728} height={90} />
+                    <BuyMeACoffee />
+                </div>
+            </BrowserView>
+            <MobileView>
+                <div className="ad_section" style={{ flexDirection: "column" }}>
+                    <KakaoAd key={"DAN-I5lLkTnmGwuOqRDk"} adKey={"DAN-I5lLkTnmGwuOqRDk"} width={320} height={50} />
+                    <Spacer height={12} />
+                    <BuyMeACoffee />
+                </div>
+            </MobileView>
+            <Spacer height={12} />
+            <div className="top_section" style={{ flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "center" : "-moz-initial" }}>
                 <Timer onFinishTimer={onFinishTimer} />
-                <Spacer width={12} />
+                {isMobile ? <Spacer height={12} /> : <Spacer width={12} />}
                 <InputInfo
                     level={level}
                     oldExp={oldExp}
