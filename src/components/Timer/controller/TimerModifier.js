@@ -12,7 +12,7 @@ const TimerModifier = ({ onClickSetTime }) => {
                 <Button text={"-5M"} value={-300} onClickButton={onClickSetTime} />
                 <Button text={"-15M"} value={-900} onClickButton={onClickSetTime} />
                 <Button text={"-1H"} value={-3600} onClickButton={onClickSetTime} />
-                <Button text={"+5M"} value={10} onClickButton={onClickSetTime} />
+                <Button text={"+5M"} value={300} onClickButton={onClickSetTime} />
                 <Button text={"+15M"} value={900} onClickButton={onClickSetTime} />
                 <Button text={"+1H"} value={3600} onClickButton={onClickSetTime} />
             </div>
@@ -21,7 +21,7 @@ const TimerModifier = ({ onClickSetTime }) => {
         return (
             <div className="TimerModifier" style={timeModifierStyle}>
                 <Button text={"-5M"} value={-300} onClickButton={onClickSetTime} />
-                <Button text={"+5M"} value={10} onClickButton={onClickSetTime} />
+                <Button text={"+5M"} value={300} onClickButton={onClickSetTime} />
                 <Button text={"-15M"} value={-900} onClickButton={onClickSetTime} />
                 <Button text={"+15M"} value={900} onClickButton={onClickSetTime} />
                 <Button text={"-1H"} value={-3600} onClickButton={onClickSetTime} />
